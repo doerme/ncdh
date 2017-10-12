@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>test</title>
+        <meta charset="UTF-8">
+        <meta name="flexible" content="initial-dpr=2,maximum-dpr=3" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="format-detection" content="telephone=no"/>
+        <script>
+            !function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));
+        </script>
+    </head>
+    <body>
+       <!--loading-->
+        <div class="loading" id="js-loading-block">
+            <div class="loading-front"></div>
+            <div class="loading-main">
+                <div class="logo"></div>
+                <div class="progress-block">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+        </div>
+        <!--下注区域-->
+        <div class="page-main">
+            <!--<a href="javascript:;" class="next-share">玩<span class="js-left-month"></span>月后就分红</a>-->
+            <a href="javascript:;" class="prev-best js-prev-best"></a>
+            <a href="javascript:;" class="butn-more js-butn-more"></a> 
+            
+            <div class="project-state" id="js-progress-text">等待开始</div>
+            <div class="progress-block" id="js-progress-block">
+                <p><span class="js-count-times">0</span>天</p>
+                <div class="progress-front js-progress-front"></div>
+            </div>
+            <div class="bg" id="js-betting-main">
+                <div class="area-betting js-area-betting area-yangzhi" data-type="a" >
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-zaihai" data-type="b">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-zhongzhi" data-type="c">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-jiachu" data-type="a1">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-shuichan" data-type="a2">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-liangshi" data-type="c1">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-shucai" data-type="c2">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-tuzhu" data-type="0">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-haiyu" data-type="3">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-xiaomai" data-type="6">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-qingcai" data-type="9">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-nainiu" data-type="1">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-xia" data-type="4">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-shuidao" data-type="7">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-qiezi" data-type="10">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-muji" data-type="2">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-panxie" data-type="5">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-hongshu" data-type="8">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+                <div class="area-betting js-area-betting area-xihongshi" data-type="11">
+                    <span class="icon-up"></span>
+                    <div class="betting-block">
+                        <div class="total-block js-total-block">0</div>
+                        <div class="mybetting-block js-mybetting-block">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--头像区域-->
+        <div class="page-users clearfix" id="js-users-main">
+            
+        </div>
+        <!--下部导航区域-->
+        <div class="page-bottom">
+            <a href="" class="my-jinbi js-my-total">0</a>
+            <div class="betting-wrap">
+                <div data-num="100" class="betting-block active js-betting-num">
+                    <div class="icon-jinbi"></div>
+                    <p>100</p> 
+                </div>
+                <div data-num="500" class="betting-block js-betting-num">
+                    <div class="icon-jinbi"></div>
+                    <p>500</p> 
+                </div>
+                <div data-num="1000" class="betting-block js-betting-num">
+                    <div class="icon-jinbi"></div>
+                    <p>1000</p> 
+                </div>
+            </div>
+            <a href="javascript:;" class="butn-cancel js-butn-cancel">
+                <span></span>    
+            </a> 
+        </div>
+        <!--多菜单-->
+        <div class="butns-float js-butns-float" >
+            <div class="mask js-butn-mask"></div>
+            <div class="content">
+                <a href="javascript:;" data-target="js-dialog-record">投资记录</a> 
+                <a href="javascript:;" data-target="js-dialog-rule">游戏玩法</a> 
+                <a href="javascript:;">公众号</a> 
+            </div>
+        </div>
+        <!--新闻快报-->
+        <div class="dialog-kuaibao js-dialog-kuaibao">
+            <div class="mask js-mask"></div>
+            <div class="content">
+                <ul class="kuaibao-block js-kuaibao-block">
+                    <li>
+                        新闻快报   
+                    </li> 
+                    <li data-type="1">
+                        <!--<img src="/ncdh/images/betting-item/zhu.png" alt="">-->
+                    </li>
+                    <li data-type="4">
+                        <!--<img src="/ncdh/images/betting-item/haiyu.png" alt="">-->
+                    </li>
+                    <li data-type="7">
+                        <!--<img src="/ncdh/images/betting-item/xiaomai.png" alt="">-->
+                    </li>
+                    <li data-type="9">
+                        <!--<img src="/ncdh/images/betting-item/qingcai.png" alt="">-->
+                    </li>
+                    <li data-type="2">
+                        <!--<img src="/ncdh/images/betting-item/nainiu.png" alt="">-->
+                    </li>
+                    <li data-type="5">
+                        <!--<img src="/ncdh/images/betting-item/xia.png" alt="">-->
+                    </li>
+                    <li data-type="8">
+                        <!--<img src="/ncdh/images/betting-item/shuidao.png" alt="">-->
+                    </li>
+                    <li data-type="11">
+                        <!--<img src="/ncdh/images/betting-item/qiezi.png" alt="">-->
+                    </li>
+                    <li data-type="3">
+                        <!--<img src="/ncdh/images/betting-item/muji.png" alt="">-->
+                    </li>
+                    <li data-type="6">
+                        <!--<img src="/ncdh/images/betting-item/panxie.png" alt="">-->
+                    </li>
+                    <li data-type="9">
+                        <!--<img src="/ncdh/images/betting-item/hongshu.png" alt="">-->
+                    </li>
+                    <li data-type="12">
+                        <!--<img src="/ncdh/images/betting-item/xihongshi.png" alt="">-->
+                    </li>
+                    <li data-type="13">
+                        <!--<img src="/ncdh/images/betting-item/zhaihai.png" alt="">-->
+                    </li>
+                </ul>
+                <div class="lottery-block js-lottery-block"></div> 
+            </div>
+        </div>
+        <!--投资记录-->
+        <div class="dialog-default dialog-record js-dialog-record">
+            <div class="mask"></div>
+            <div class="content">
+                <h3>
+                    投资记录
+                    <a href="javascript:;" class="butn-close js-dialog-close"></a> 
+                </h3>
+                <div class="investmenti-block js-investmenti-block">
+                    <ul class="clearfix">
+                        <li >
+                            <div class="left">
+                                <p>1186月</p> 
+                                <p>回报1000</p> 
+                                <p>总投资100</p> 
+                            </div>
+                            <div class="right">查看明细</div>
+                        </li>
+                        <li >
+                            <div class="left">
+                                <p>1186月</p> 
+                                <p>回报1000</p> 
+                                <p>总投资100</p> 
+                            </div>
+                            <div class="right">查看明细</div>
+                        </li>
+                        <li >
+                            <div class="left">
+                                <p>1186月</p> 
+                                <p>回报1000</p> 
+                                <p>总投资100</p> 
+                            </div>
+                            <div class="right">查看明细</div>
+                        </li>
+                        <li >
+                            <div class="left">
+                                <p>1186月</p> 
+                                <p>回报1000</p> 
+                                <p>总投资100</p> 
+                            </div>
+                            <div class="right">查看明细</div>
+                        </li>
+                        <li >
+                            <div class="left">
+                                <p>1186月</p> 
+                                <p>回报1000</p> 
+                                <p>总投资100</p> 
+                            </div>
+                            <div class="right">查看明细</div>
+                        </li>
+                        <li >
+                            <div class="left">
+                                <p>1186月</p> 
+                                <p>回报1000</p> 
+                                <p>总投资100</p> 
+                            </div>
+                            <div class="right">查看明细</div>
+                        </li>
+                        <li >
+                            <div class="left">
+                                <p>1186月</p> 
+                                <p>回报1000</p> 
+                                <p>总投资100</p> 
+                            </div>
+                            <div class="right">查看明细</div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--投资详情-->
+        <div class="dialog-default dialog-record js-dialog-record2" >
+            <div class="mask"></div>
+            <div class="content">
+                <h3>
+                    投资记录
+                    <a href="javascript:;" class="butn-back js-dialog-back"></a>                     
+                    <a href="javascript:;" class="butn-close js-dialog-close"></a> 
+                </h3>
+                <div class="record-detail">
+                    <div class="clearfix">
+                        <div class="left">
+                            <p>1184月</p> 
+                            <p>最佳投资</p> 
+                            <p>水稻技术突破</p> 
+                            <p>粮食与种植业发展指数上升</p> 
+                        </div>
+                        <div class="right">
+                            <img src="/ncdh/images/betting-item/xiaomai.png" alt="">
+                            <span class="icon-1">小麦</span>
+                            <span class="icon-2">种植区</span>
+                            <span class="icon-3">粮食</span>
+                        </div>
+                    </div>
+                    <div class="record-my">
+                        <p>投资明细</p> 
+                        <p>汇报195(分红%) | 总投资300</p> 
+                        <ul>
+                            <li class="clearfix">
+                                <span>项目</span>
+                                <span>投资</span>
+                                <span>回报</span>
+                            </li>
+                            <li class="clearfix">
+                                <span>小麦</span>
+                                <span>100</span>
+                                <span>1000</span>
+                            </li>
+                            <li class="clearfix">
+                                <span>小麦</span>
+                                <span>100</span>
+                                <span>1000</span>
+                            </li>
+                            <li class="clearfix">
+                                <span>小麦</span>
+                                <span>100</span>
+                                <span>1000</span>
+                            </li>
+                            <li class="clearfix">
+                                <span>小麦</span>
+                                <span>100</span>
+                                <span>1000</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--玩法-->
+        <div class="dialog-default dialog-record js-dialog-rule">
+            <div class="mask"></div>
+            <div class="content">
+                <h3>
+                    游戏介绍和 详细规则<a href="javascript:;" class="butn-close js-dialog-close"></a> 
+                </h3>
+                <div class="investmenti-block play-block">
+                     <p>
+                        一、游戏介绍
+                    </p>
+                    <p>
+                        文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍文字介绍
+                    </p> 
+                </div>
+               
+            </div>
+        </div>
+         <!--开奖记录-->
+        <div class="dialog-default dialog-record js-dialog-lottery">
+            <div class="mask"></div>
+            <div class="content dialog-lottery-block">
+                <h3 class="js-nav-tav">
+                    <a href="javascript:;" class="active">最佳投资</a> 
+                    <a href="javascript:;"  >品种趋势</a> 
+                    <a href="javascript:;" class="butn-close js-dialog-close"></a> 
+                </h3>
+                <div class="investmenti-block lottery-tab js-lottery-tab active">
+                    <p class="title">
+                         <span>月份</span>
+                         <span>品种</span>
+                         <span>家畜</span>
+                         <span>水产</span>
+                         <span>粮食</span>
+                         <span>蔬菜</span>
+                         <span>养殖</span>
+                         <span>种植</span>
+                    </p> 
+                    <p>
+                       <span>0101</span> 
+                       <span>河虾</span> 
+                       <span></span> 
+                       <span></span> 
+                       <span class="active"></span> 
+                       <span></span> 
+                       <span ></span> 
+                       <span class="active"></span> 
+                    </p> 
+                     <p>
+                       <span>0101</span> 
+                       <span>河虾</span> 
+                       <span></span> 
+                       <span></span> 
+                       <span class="active"></span> 
+                       <span></span> 
+                       <span ></span> 
+                       <span class="active"></span> 
+                    </p> 
+                     <p>
+                       <span>0101</span> 
+                       <span>河虾</span> 
+                       <span></span> 
+                       <span></span> 
+                       <span class="active"></span> 
+                       <span></span> 
+                       <span ></span> 
+                       <span class="active"></span> 
+                    </p> 
+                </div> 
+                <div class="investmenti-block lottery-tab js-lottery-tab ">
+                    <canvas id="canvas"></canvas>
+                </div>
+            </div>
+        </div>
+        <div id="hitoast"></div>
+        <script src="/ncdh/js/lib/zepto.min.js"></script>
+        <script src="/ncdh/js/lib/fastclick.js"></script>
+        <script src="/ncdh/js/lib/velocity.js"></script>
+        <script src="/ncdh/js/app.bundle.js"></script>
+        <script>
+            app.default();
+        </script>
+    </body>
+</html>

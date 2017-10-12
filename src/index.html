@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>农场大亨</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <!--loading-->
+    <div class="loading" id="js-loading-block">
+        <div class="loading-front"></div>
+        <div class="loading-main">
+            <div class="logo"></div>
+            <div class="progress-block">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+    <div class="page-loading js-loading " >
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+    <!--下注区域-->
+    <div class="page-main">
+        <!--<a href="javascript:;" class="next-share">玩<span class="js-left-month"></span>月后就分红</a>-->
+        <a href="javascript:;" class="prev-best js-prev-best"></a>
+        <a href="javascript:;" class="butn-more js-butn-more"></a>
+
+        <div class="project-state" id="js-progress-text">等待开始</div>
+        <div class="progress-block" id="js-progress-block">
+            <p><span class="js-count-times">0</span>天</p>
+            <div class="progress-front js-progress-front"></div>
+        </div>
+        <div class="bg" id="js-betting-main">
+            <div class="area-betting js-area-betting area-yangzhi" data-type="a">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-zaihai" data-type="b">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-zhongzhi" data-type="c">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-jiachu" data-type="a1">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-shuichan" data-type="a2">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-liangshi" data-type="c1">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-shucai" data-type="c2">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-tuzhu" data-type="0">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-haiyu" data-type="3">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-xiaomai" data-type="6">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-qingcai" data-type="9">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-nainiu" data-type="1">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-xia" data-type="4">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-shuidao" data-type="7">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-qiezi" data-type="10">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-muji" data-type="2">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-panxie" data-type="5">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-hongshu" data-type="8">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+            <div class="area-betting js-area-betting area-xihongshi" data-type="11">
+                <span class="icon-up"></span>
+                <div class="betting-block">
+                    <div class="total-block js-total-block">0</div>
+                    <div class="mybetting-block js-mybetting-block">0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--头像区域-->
+    <div class="page-users clearfix" id="js-users-main">
+
+    </div>
+    <!--下部导航区域-->
+    <div class="page-bottom">
+        <a href="/user/usercenter" class="my-zs js-my-zs">0</a>
+        <a href="/user/usercenter" class="my-jinbi js-my-total">0</a>
+        <div class="betting-wrap">
+            <div data-num="100" class="betting-block active js-betting-num">
+                <div class="icon-jinbi"></div>
+                <p>100</p>
+            </div>
+            <div data-num="500" class="betting-block js-betting-num">
+                <div class="icon-jinbi"></div>
+                <p>500</p>
+            </div>
+            <div data-num="1000" class="betting-block js-betting-num">
+                <div class="icon-jinbi"></div>
+                <p>1000</p>
+            </div>
+        </div>
+        <a href="javascript:;" class="butn-cancel js-butn-cancel">
+            <span></span>
+        </a>
+    </div>
+    <!--多菜单-->
+    <div class="butns-float js-butns-float">
+        <div class="mask js-butn-mask"></div>
+        <div class="content">
+            <a href="javascript:;" data-target="js-dialog-record">投资记录</a>
+            <a href="javascript:;" data-target="js-dialog-rule">游戏玩法</a>
+            <a href="javascript:;">公众号</a>
+        </div>
+    </div>
+    <!--新闻快报-->
+    <div class="dialog-kuaibao js-dialog-kuaibao">
+        <div class="mask js-mask"></div>
+        <div class="content">
+            <ul class="kuaibao-block js-kuaibao-block">
+            </ul>
+            <div class="lottery-block js-lottery-block"></div>
+        </div>
+    </div>
+    <!--投资记录-->
+    <div class="dialog-default dialog-record js-dialog-record">
+        <div class="mask"></div>
+        <div class="content">
+            <h3>
+                投资记录
+                <a href="javascript:;" class="butn-close js-dialog-close"></a>
+            </h3>
+            <div class="investmenti-block js-investmenti-block">
+                <ul class="clearfix">
+                    <li>
+                        <div class="left">
+                            <p>1186月</p>
+                            <p>回报1000</p>
+                            <p>总投资100</p>
+                        </div>
+                        <div class="right">查看明细</div>
+                    </li>
+                    <li>
+                        <div class="left">
+                            <p>1186月</p>
+                            <p>回报1000</p>
+                            <p>总投资100</p>
+                        </div>
+                        <div class="right">查看明细</div>
+                    </li>
+                    <li>
+                        <div class="left">
+                            <p>1186月</p>
+                            <p>回报1000</p>
+                            <p>总投资100</p>
+                        </div>
+                        <div class="right">查看明细</div>
+                    </li>
+                    <li>
+                        <div class="left">
+                            <p>1186月</p>
+                            <p>回报1000</p>
+                            <p>总投资100</p>
+                        </div>
+                        <div class="right">查看明细</div>
+                    </li>
+                    <li>
+                        <div class="left">
+                            <p>1186月</p>
+                            <p>回报1000</p>
+                            <p>总投资100</p>
+                        </div>
+                        <div class="right">查看明细</div>
+                    </li>
+                    <li>
+                        <div class="left">
+                            <p>1186月</p>
+                            <p>回报1000</p>
+                            <p>总投资100</p>
+                        </div>
+                        <div class="right">查看明细</div>
+                    </li>
+                    <li>
+                        <div class="left">
+                            <p>1186月</p>
+                            <p>回报1000</p>
+                            <p>总投资100</p>
+                        </div>
+                        <div class="right">查看明细</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--投资详情-->
+    <div class="dialog-default dialog-record js-dialog-record2">
+        <div class="mask"></div>
+        <div class="content">
+            <h3>
+                投资记录
+                <a href="javascript:;" class="butn-back js-dialog-back"></a>
+                <a href="javascript:;" class="butn-close js-dialog-close"></a>
+            </h3>
+            <div class="record-detail">
+                <div class="clearfix">
+                    <div class="left">
+                        <p>1184月</p>
+                        <p>最佳投资</p>
+                        <p>水稻技术突破</p>
+                        <p>粮食与种植业发展指数上升</p>
+                    </div>
+                    <div class="right">
+                        <img src="/ncdh/images/betting-item/xiaomai.png" alt="">
+                        <span class="icon-1">小麦</span>
+                        <span class="icon-2">种植区</span>
+                        <span class="icon-3">粮食</span>
+                    </div>
+                </div>
+                <div class="record-my">
+                    <p>投资明细</p>
+                    <p>汇报195(分红%) | 总投资300</p>
+                    <ul>
+                        <li class="clearfix">
+                            <span>项目</span>
+                            <span>投资</span>
+                            <span>回报</span>
+                        </li>
+                        <li class="clearfix">
+                            <span>小麦</span>
+                            <span>100</span>
+                            <span>1000</span>
+                        </li>
+                        <li class="clearfix">
+                            <span>小麦</span>
+                            <span>100</span>
+                            <span>1000</span>
+                        </li>
+                        <li class="clearfix">
+                            <span>小麦</span>
+                            <span>100</span>
+                            <span>1000</span>
+                        </li>
+                        <li class="clearfix">
+                            <span>小麦</span>
+                            <span>100</span>
+                            <span>1000</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--玩法-->
+    <div class="dialog-default dialog-record js-dialog-rule">
+        <div class="mask"></div>
+        <div class="content">
+            <h3>
+                游戏介绍和 详细规则
+                <a href="javascript:;" class="butn-close js-dialog-close"></a>
+            </h3>
+            <div class="investmenti-block play-block">
+                <p>
+                    游戏规则奖励
+                </p>
+                <p>①投资整个养殖区或种植区可以获得1.86倍的奖励</p>
+                <p>②投资家畜类水产类粮食类蔬菜类其中1类，可以获得3.6倍的奖励</p> 
+                <p>③投资土猪奶牛母鸡海鱼虾螃蟹小麦水稻红薯青菜茄子西红柿，其中1项，可以获得10倍的奖励</p> 
+                <p>④投资灾害险可获得100倍的奖励</p> 
+                <p>⑤投资周期为平台倒计时30天（1天＝1秒″）关新闻快报赢取丰厚奖励哦</p> 
+                <p>以上最终解释权归【欢乐菠萝】所有</p> 
+            </div>
+
+        </div>
+    </div>
+    <!--开奖记录-->
+    <div class="dialog-default dialog-record js-dialog-lottery">
+        <div class="mask"></div>
+        <div class="content dialog-lottery-block">
+            <h3 class="js-nav-tav">
+                <a href="javascript:;" class="active">最佳投资</a>
+                <a href="javascript:;">品种趋势</a>
+                <a href="javascript:;" class="butn-close js-dialog-close"></a>
+            </h3>
+            <div class="investmenti-block lottery-tab js-lottery-tab active">
+                
+            </div>
+            <div class="investmenti-block lottery-tab js-lottery-tab ">
+                <canvas id="canvas"></canvas>
+            </div>
+        </div>
+    </div>
+    <div id="hitoast"></div>
+    <div class="page-dialog js-dialog-recharge">
+        <div class="content">
+            <p>余额不足下单，快去充值吧~</p> 
+            <a href="/user/usercenter">确定</a> 
+        </div>
+    </div>
+    <div class="page-toast" id="js-page-toast"></div>
+    <div class="load-before-img" style="display:none;">
+        <img src="<%= require('./images/betting-item/haiyu.png')  %>" alt="">
+        <img src="<%= require('./images/logo.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/hongshu.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/jiachu.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/liangshi.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/muji.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/nainiu.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/panxie.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/qiezi.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/qingcai.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/shucai.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/shuichan.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/shuidao.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/xia.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/xiaomai.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/xihongshi.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/yangzhi.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/zhaihai.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/zhaihai2.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/zhongzhi.png')  %>" alt="">
+        <img src="<%= require('./images/betting-item/zhu.png')  %>" alt="">
+        <img src="<%= require('./images/back.png')  %>" alt="">
+        <img src="<%= require('./images/bottom-nav.png')  %>" alt="">
+        <img src="<%= require('./images/jinbi.png')  %>" alt="">
+        <img src="<%= require('./images/kuaibao_bg.png')  %>" alt="">
+        <img src="<%= require('./images/main.png')  %>" alt="">
+        <img src="<%= require('./images/sharpe-hong.png')  %>" alt="">
+        <img src="<%= require('./images/sharpe-lan.png')  %>" alt="">
+        <img src="<%= require('./images/up.png')  %>" alt="">
+        
+    </div>
+    <script src="/ncdh/js/lib/zepto.min.js"></script>
+    <script src="/ncdh/js/lib/fastclick.js"></script>
+    <script src="/ncdh/js/lib/velocity.js"></script>
+</body>
+
+</html>
