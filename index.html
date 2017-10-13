@@ -2265,22 +2265,12 @@
             height: 1.333333rem;
             border-radius: 50%;
           }
-          
-          /*page-bottom*/
-          
-          .page-bottom {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            margin-left: -5rem;
-            width: 10rem;
-            height: 1.8rem;
-            background-image: url(/ncdh/images/bottom-nav.png?v=15c9767f2a5d5a228a11248fbf569829);
-            background-size: 10rem;
-            background-repeat: no-repeat;
+          .page-top{
+            position: absolute;
+            left: 0;
+            top: 0;
           }
-          
-          .page-bottom .my-jinbi {
+          .page-top  .my-jinbi {
             position: absolute;
             top: 0.933333rem;
             left: 0.346667rem;
@@ -2290,6 +2280,18 @@
             line-height: 0.693333rem;
             color: #ffcc00;
             font-size: 0.32rem;
+          }
+          /*page-bottom*/
+          .page-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            margin-left: -5rem;
+            width: 10rem;
+            height: 1.8rem;
+            background-image: url('/ncdh/images/new/bottom_nav_new.png');
+            background-size: 10rem;
+            background-repeat: no-repeat;
           }
           
           .page-bottom .my-zs {
@@ -2319,15 +2321,25 @@
           
           .page-bottom .butn-cancel {
             position: absolute;
-            right: 0.293333rem;
+            right: 1.94rem;
             bottom: 0.2rem;
             width: 0.453333rem;
             height: 0.453333rem;
             padding: 0.2rem 0.306667rem 0.506667rem;
           }
+          .page-bottom .butn-order-sure{
+            position: absolute;
+            right: 0.4rem;
+            bottom: 0.1rem;
+            width: 0.5rem;
+            height: 0.5rem;
+            padding: 0.2rem 0.306667rem 0.506667rem;
+            background: url('/ncdh/images/new/surebt.png') no-repeat;
+            background-size: 100% auto; 
+          }
           
           .page-bottom .betting-wrap {
-            margin-left: 3.266667rem;
+            margin-left: 0rem;
             margin-top: 0.466667rem;
           }
           
@@ -2340,7 +2352,8 @@
             font-size: 0.32rem;
             line-height: 0.453333rem;
             color: #fff;
-            margin-right: 0.186667rem;
+            margin-right: 0rem;
+            margin-left: 0.5rem;
             opacity: .5;
           }
           
@@ -3573,9 +3586,14 @@
         <div class="page-users clearfix" id="js-users-main">
             
         </div>
+        <!--  金币钻石区 -->
+        <div class="page-top">
+            <a href="javascript:;" class="my-zuanshi js-myzs-total">0</a>
+            <a href="javascript:;" class="my-jinbi js-my-total">0</a>
+        </div>
+        <!-- 金币钻石区end -->
         <!--下部导航区域-->
         <div class="page-bottom">
-            <a href="" class="my-jinbi js-my-total">0</a>
             <div class="betting-wrap">
                 <div data-num="100" class="betting-block active js-betting-num">
                     <div class="icon-jinbi"></div>
@@ -3592,7 +3610,8 @@
             </div>
             <a href="javascript:;" class="butn-cancel js-butn-cancel">
                 <span></span>    
-            </a> 
+            </a>
+            <a href="javascript:;" class="butn-order-sure js-butn-order-sure"></a>
         </div>
         <!--多菜单-->
         <div class="butns-float js-butns-float" >
