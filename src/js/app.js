@@ -685,6 +685,35 @@ App.prototype.eventInit = function () {
         });
 
     });
+
+    // 砖石转换
+    $('.js-my-zs').on('click', function(){
+        $('.js-forpay-window').removeClass('hide');
+        $('.forpay-window-nav li').removeClass('cur');
+        $('.forpay-window-nav li').eq(1).addClass('cur');
+        $('.js-fp-change-tips').removeClass('hide');
+    })
+
+    $('.js-my-total').on('click', function(){
+        $('.js-forpay-window').removeClass('hide');
+        $('.forpay-window-nav li').removeClass('cur');
+        $('.forpay-window-nav li').eq(0).addClass('cur');
+        $('.js-fp-change-tips').addClass('hide');
+    })
+
+    $('.forpay-window-nav li').on('click', function(){
+        $('.forpay-window-nav li').removeClass('cur');
+        $(this).addClass('cur');
+        if($(this).index() == 1){
+            $('.js-fp-change-tips').removeClass('hide');
+        }else{
+            $('.js-fp-change-tips').addClass('hide');
+        }
+    })
+
+    $('.forpay-window-bt1,.forpay-window-mask').on('click', function(){
+        $('.js-forpay-window').addClass('hide');
+    })
 }
 /**
  * 飞金币动画
@@ -1132,7 +1161,7 @@ App.prototype.arrayFilter = function (arr) {
     for(var n in arr){
         if(arr[n] > 0) {
             console.log(n, arr[n]);
-            rsArr[n] = arr[n] - curUserPaySumInfo[n];
+            rsArr[n] = arr[n];
         }
     }
     console.log('after filter', rsArr);
@@ -1161,6 +1190,7 @@ App.prototype.ajaxBetting = function (callback) {
         success: function (res) {
             var endTime = + new Date();
             orderObjArr = orderObjArrInit;
+            $('.js-butn-order-sure').addClass('disable');
             // console.log(endTime - 1000 > startTime);
             if (endTime - 1000 > startTime){
                 ajaxCheckOk(res);
