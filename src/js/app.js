@@ -750,6 +750,7 @@ App.prototype.eventInit = function () {
                 success: function (res) {
                     if (res.code == 0) {
                         // window.location.href = res.data.pay_url;
+                        $('.js-forpay-window').addClass('hide');
                         self.rerenderList(true);
                     } else {
                         Toast(res.msg);
