@@ -21,6 +21,9 @@ $.ajaxSettings = $.extend($.ajaxSettings, {
         }, 2000);
     }
 });
+
+var apiWindowHost='http://www.ladydrean.com';
+
 /**
  * 对应的项目
  */
@@ -856,7 +859,7 @@ App.prototype.cancelAajx = function (elem) {
     elem.addClass('active');
     $.ajax({
         type: 'post',
-        url: '/api/ncdh/unPay',
+        url: apiWindowHost+'/api/ncdh/unPay',
         data: {
             _token: window.token,
             issue: self.issue
@@ -887,7 +890,7 @@ App.prototype.getCurrentInfo = function (type) {
     var self = this;
     $.ajax({
         type: 'get',
-        url: '/api/ncdh/getRunningIssue',
+        url: apiWindowHost+'/api/ncdh/getRunningIssue',
         dataType: 'json',
         data: {
             _token: window.token
@@ -913,7 +916,7 @@ App.prototype.eachCurrentIssue = function () {
         }
         $.ajax({
             type: 'get',
-            url: '/api/ncdh/getRunningIssue',
+            url: apiWindowHost+'/api/ncdh/getRunningIssue',
             dataType: 'json',
             data: {
                 _token: window.token
@@ -1007,7 +1010,7 @@ App.prototype.getIssueOpenResult = function (callback) {
     // return;
     $.ajax({
         type: 'post',
-        url: '/api/ncdh/getIssueOpenResult',
+        url: apiWindowHost+'/api/ncdh/getIssueOpenResult',
         data: {
             _token: window.token,
             issue: self.issue,
@@ -1034,7 +1037,7 @@ App.prototype.getIssueOpenResult = function (callback) {
 App.prototype.getLatestWinInfo = function (callback) {
     $.ajax({
         type: 'get',
-        url: '/api/ncdh/getLatestWinInfo',
+        url: apiWindowHost+'/api/ncdh/getLatestWinInfo',
         data: {
             _token: window.token,
             size: 10
@@ -1063,7 +1066,7 @@ App.prototype.ajaxBetting = function (callback) {
     console.log(startTime,'start');
     $.ajax({
         type: 'post',
-        url: '/api/ncdh/doPay',
+        url: apiWindowHost+'/api/ncdh/doPay',
         data: {
             _token: window.token,
             issue: self.issue,

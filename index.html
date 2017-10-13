@@ -9,6 +9,3407 @@
         <script>
             !function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));
         </script>
+        <style type="text/css">::-moz-focus-inner {
+            border-color: transparent;
+          }
+          
+          .dialog {
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 10001;
+            width: 100%;
+            height: 100%;
+          }
+          
+          .dialog-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10002;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+          }
+          
+          .dialog-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 10003;
+            width: 8rem;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            line-height: 1.5;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 0.133333rem;
+          }
+          
+          .dialog-content * {
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: none;
+            -moz-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            font-family: Helvetica;
+            font-size: 0.346667rem;
+          }
+          
+          .dialog-btn,
+          .dialog-btn-hl {
+            position: relative;
+            display: inline-block;
+            height: 0.586667rem;
+            line-height: 0.586667rem;
+            color: #007aff;
+            font-size: 0.346667rem;
+            font-weight: 400;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: transparent;
+          }
+          
+          .dialog-btn:hover,
+          .dialog-btn:active,
+          .dialog-btn-hl:hover,
+          .dialog-btn-hl:active {
+            background-color: rgba(0, 0, 0, 0.05);
+          }
+          
+          .dialog-content-hd {
+            position: relative;
+            padding: 0.266667rem 0.266667rem 0.133333rem;
+            margin-bottom: -0.333333rem;
+            text-align: center;
+          }
+          
+          .dialog-content-hd .dialog-content-title {
+            font-size: 0.346667rem;
+            font-weight: 400;
+            color: #333;
+          }
+          
+          .dialog-content-hd .dialog-btn-close {
+            display: block;
+            width: 0.346667rem;
+            height: 0.346667rem;
+            overflow: hidden;
+            position: absolute;
+            top: 0.24rem;
+            right: 0.2rem;
+            cursor: pointer;
+            background-color: transparent;
+          }
+          
+          .dialog-content-hd .dialog-btn-close span {
+            display: none;
+          }
+          
+          .dialog-content-hd .dialog-btn-close:before,
+          .dialog-content-hd .dialog-btn-close:after {
+            content: "";
+            display: block;
+            width: 0.24rem;
+            height: 0.013333rem;
+            background-color: #808080;
+            position: absolute;
+            top: 0.173333rem;
+            right: 0.04rem;
+          }
+          
+          .dialog-content-hd .dialog-btn-close:before {
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+          }
+          
+          .dialog-content-hd .dialog-btn-close:after {
+            -webkit-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+          }
+          
+          .dialog-content-bd {
+            margin: 0.333333rem 0.266667rem;
+            color: #666;
+            text-align: center;
+          }
+          
+          .dialog-content-bd p {
+            padding: 0.066667rem 0;
+          }
+          
+          .content-scroll {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+          }
+          
+          .dialog-content-ft {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            position: relative;
+            font-size: 0;
+          }
+          
+          .dialog-content-ft:after {
+            content: " ";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 0.013333rem;
+            border-top: 0.013333rem solid #d5d5d5;
+            color: #d5d5d5;
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(0.5);
+            -ms-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+          }
+          
+          .dialog-content-ft .dialog-btn {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            display: block;
+          }
+          
+          .dialog-content-ft .dialog-btn:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0.013333rem;
+            height: 100%;
+            border-left: 0.013333rem solid #d5d5d5;
+            color: #d5d5d5;
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleX(0.5);
+            -ms-transform: scaleX(0.5);
+            transform: scaleX(0.5);
+          }
+          
+          .dialog-content-ft .dialog-btn:first-child {
+            border-bottom-left-radius: 0.106667rem;
+          }
+          
+          .dialog-content-ft .dialog-btn:first-child:after {
+            border-left: none;
+          }
+          
+          .dialog-content-ft .dialog-btn:last-child {
+            border-bottom-right-radius: 0.106667rem;
+          }
+          
+          .dialog-content-ft.stacked {
+            -webkit-flex-flow: column;
+            -ms-flex-flow: column;
+            flex-flow: column;
+            display: block;
+          }
+          
+          .dialog-content-ft.stacked:after {
+            border: none;
+          }
+          
+          .dialog-content-ft.stacked .dialog-btn {
+            position: relative;
+            display: block;
+            width: 100%;
+          }
+          
+          .dialog-content-ft.stacked .dialog-btn:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 0.013333rem;
+            border-top: 0.013333rem solid #d5d5d5;
+            color: #d5d5d5;
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(0.5);
+            -ms-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+          }
+          
+          .dialog-open .dialog-content,
+          .dialog-open .dialog-overlay,
+          .dialog-close .dialog-content,
+          .dialog-close .dialog-overlay {
+            -webkit-animation-duration: .25s;
+            animation-duration: .25s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+          }
+          
+          .dialog-open .dialog-content {
+            -webkit-animation-name: zoom-in;
+            animation-name: zoom-in;
+          }
+          
+          .dialog-open .dialog-overlay {
+            -webkit-animation-name: fade-in;
+            animation-name: fade-in;
+          }
+          
+          .dialog-close .dialog-content {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          .dialog-close .dialog-overlay {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          [data-style=android] .dialog-content {
+            box-sizing: content-box;
+            border-radius: 0;
+            background-color: #fff;
+          }
+          
+          [data-style=android] .dialog-content-hd {
+            text-align: left;
+            padding: 0.266667rem 0.266667rem 0;
+            margin-bottom: -0.133333rem;
+          }
+          
+          [data-style=android] .dialog-content-hd .dialog-btn-close {
+            top: 0.2rem;
+            right: 0.2rem;
+          }
+          
+          [data-style=android] .dialog-content-bd {
+            margin: 0.333333rem 0.266667rem;
+            text-align: left;
+          }
+          
+          [data-style=android] .dialog-content-ft {
+            display: block;
+            padding: 0.106667rem;
+            margin-top: -0.133333rem;
+            text-align: right;
+          }
+          
+          [data-style=android] .dialog-content-ft:after {
+            border: none;
+          }
+          
+          [data-style=android] .dialog-content-ft .dialog-btn {
+            display: inline-block;
+            min-width: 0.8rem;
+            height: 0.48rem;
+            line-height: 0.48rem;
+            overflow: hidden;
+            padding: 0 0.173333rem;
+            font-size: 0.346667rem;
+            color: #808080;
+            text-align: center;
+            border-radius: 0.026667rem;
+          }
+          
+          [data-style=android] .dialog-content-ft .dialog-btn:after {
+            border: none;
+          }
+          
+          [data-style=android] .dialog-content-ft .dialog-btn-confirm,
+          [data-style=android] .dialog-content-ft .dialog-btn-hl {
+            color: #00bbd3;
+          }
+          
+          [data-style=android] .dialog-content-ft.stacked .dialog-btn {
+            display: block;
+            text-align: right;
+            width: 100%;
+          }
+          
+          [data-style=android] .dialog-content-ft-border:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 0.013333rem;
+            border-top: 0.013333rem solid #d5d5d5;
+            color: #d5d5d5;
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(0.5);
+            -ms-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+          }
+          
+          [data-style=android] .ripple {
+            border-radius: 1333.32rem;
+            pointer-events: none;
+            position: absolute;
+            width: 2.666667rem;
+            height: 2.666667rem;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            -webkit-transform: scale(0);
+            -ms-transform: scale(0);
+            transform: scale(0);
+            animation: ripple .75s ease-out;
+            -webkit-animation: ripple .75s ease-out;
+          }
+          
+          @-webkit-keyframes ripple {
+            0% {
+              -webkit-transform: scale(0);
+              opacity: .5;
+            }
+          
+            100% {
+              -webkit-transform: scale(2);
+              opacity: 0;
+            }
+          }
+          
+          @keyframes ripple {
+            0% {
+              -webkit-transform: scale(0);
+              transform: scale(0);
+              opacity: .5;
+            }
+          
+            100% {
+              -webkit-transform: scale(2);
+              transform: scale(2);
+              opacity: 0;
+            }
+          }
+          
+          [data-style=android].dialog-open .dialog-content {
+            -webkit-animation-name: bounce-in-down;
+            animation-name: bounce-in-down;
+          }
+          
+          [data-style=android].dialog-open .dialog-overlay {
+            -webkit-animation-name: fade-in;
+            animation-name: fade-in;
+          }
+          
+          [data-style=android].dialog-close .dialog-content {
+            -webkit-animation-name: bounce-out-up;
+            animation-name: bounce-out-up;
+          }
+          
+          [data-style=android].dialog-close .dialog-overlay {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          .dialog-toast .dialog-overlay {
+            background-color: transparent;
+          }
+          
+          .dialog-toast .dialog-content {
+            width: 6.666667rem;
+            height: 1.44rem;
+            border-radius: 0.133333rem;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: table;
+          }
+          
+          .dialog-toast .dialog-content-bd {
+            margin: 0;
+            padding: 0;
+            font-size: 0;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+          }
+          
+          .dialog-toast .dialog-content-bd p {
+            margin: 0;
+            padding: 0;
+          }
+          
+          .dialog-toast .info-icon {
+            width: 0.746667rem;
+            max-width: 0.746667rem;
+          }
+          
+          .dialog-toast .info-text {
+            display: block;
+            width: 90%;
+            margin: 0.16rem auto 0;
+            font-size: 0.346667rem;
+            color: #fff;
+          }
+          
+          .dialog-toast.dialog-open .dialog-content,
+          .dialog-toast.dialog-open .dialog-overlay {
+            -webkit-animation-duration: .5s;
+            animation-duration: .5s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+          }
+          
+          .dialog-toast.dialog-close .dialog-content,
+          .dialog-toast.dialog-close .dialog-overlay {
+            -webkit-animation-duration: .35s;
+            animation-duration: .35s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+          }
+          
+          .dialog-toast.dialog-open .dialog-content {
+            -webkit-animation-name: fade-in;
+            animation-name: fade-in;
+          }
+          
+          .dialog-toast.dialog-open .dialog-overlay {
+            -webkit-animation-name: fade-in;
+            animation-name: fade-in;
+          }
+          
+          .dialog-toast.dialog-close .dialog-content {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          .dialog-toast.dialog-close .dialog-overlay {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          .dialog-notice .dialog-overlay {
+            background-color: transparent;
+          }
+          
+          .dialog-notice .dialog-content {
+            display: table;
+            width: auto;
+            max-width: 85%;
+            border-radius: 0.053333rem;
+            background-color: rgba(0, 0, 0, 0.8);
+          }
+          
+          .dialog-notice .dialog-content-bd {
+            margin: 0;
+            font-size: 0;
+            padding: 0.133333rem 0.2rem;
+            line-height: normal;
+          }
+          
+          .dialog-notice .info-icon {
+            width: 0.213333rem;
+            max-width: 0.213333rem;
+            margin: 0 0.026667rem;
+            vertical-align: middle;
+            position: relative;
+            top: -0.013333rem;
+          }
+          
+          .dialog-notice .info-text {
+            margin: 0 0.026667rem;
+            font-size: 0.32rem;
+            color: #fff;
+            line-height: 1.3;
+            vertical-align: middle;
+          }
+          
+          .dialog-notice.dialog-open .dialog-content,
+          .dialog-notice.dialog-open .dialog-overlay {
+            -webkit-animation-duration: .1s;
+            animation-duration: .1s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+          }
+          
+          .dialog-notice.dialog-close .dialog-content,
+          .dialog-notice.dialog-close .dialog-overlay {
+            -webkit-animation-duration: .3s;
+            animation-duration: .3s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+          }
+          
+          .dialog-notice.dialog-open .dialog-content {
+            -webkit-animation-name: fade-in;
+            animation-name: fade-in;
+          }
+          
+          .dialog-notice.dialog-open .dialog-overlay {
+            -webkit-animation-name: fade-in;
+            animation-name: fade-in;
+          }
+          
+          .dialog-notice.dialog-close .dialog-content {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          .dialog-notice.dialog-close .dialog-overlay {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          .dialog-notice-bottom .dialog-content {
+            top: auto;
+            bottom: 0;
+            -webkit-transform: translate(-50%, -0.266667rem);
+            -ms-transform: translate(-50%, -0.266667rem);
+            transform: translate(-50%, -0.266667rem);
+          }
+          
+          .dialog-notice-bottom.dialog-open .dialog-content,
+          .dialog-notice-bottom.dialog-open .dialog-overlay,
+          .dialog-notice-bottom.dialog-close .dialog-content,
+          .dialog-notice-bottom.dialog-close .dialog-overlay {
+            -webkit-animation-duration: .3s;
+            animation-duration: .3s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+          }
+          
+          .dialog-notice-bottom.dialog-open .dialog-content {
+            -webkit-animation-name: bounce-in-up;
+            animation-name: bounce-in-up;
+          }
+          
+          .dialog-notice-bottom.dialog-close .dialog-content {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          @media screen and (min-width: 1023px) {
+            .dialog-content {
+              max-width: 40%;
+            }
+          }
+          
+          @media screen and (min-width: 767px) {
+            .dialog-content {
+              max-width: 60%;
+            }
+          }
+          
+          @-webkit-keyframes zoom-in {
+            0% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -50%) scale(1.2, 1.2);
+            }
+          
+            100% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -50%) scale(1, 1);
+            }
+          }
+          
+          @keyframes zoom-in {
+            0% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -50%) scale(1.2, 1.2);
+              transform: translate(-50%, -50%) scale(1.2, 1.2);
+            }
+          
+            100% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -50%) scale(1, 1);
+              transform: translate(-50%, -50%) scale(1, 1);
+            }
+          }
+          
+          @-webkit-keyframes zoom-out {
+            0% {
+              opacity: 1;
+            }
+          
+            100% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -50%) scale(0.8, 0.8);
+            }
+          }
+          
+          @keyframes zoom-out {
+            0% {
+              opacity: 1;
+            }
+          
+            100% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -50%) scale(0.8, 0.8);
+              transform: translate(-50%, -50%) scale(0.8, 0.8);
+            }
+          }
+          
+          @-webkit-keyframes fade-in {
+            0% {
+              opacity: 0;
+            }
+          
+            100% {
+              opacity: 1;
+            }
+          }
+          
+          @-webkit-keyframes fade-in {
+            0% {
+              opacity: 0;
+            }
+          
+            100% {
+              opacity: 1;
+            }
+          }
+          
+          @keyframes fade-out {
+            0% {
+              opacity: 1;
+            }
+          
+            100% {
+              opacity: 0;
+            }
+          }
+          
+          @-webkit-keyframes fade-out {
+            0% {
+              opacity: 1;
+            }
+          
+            100% {
+              opacity: 0;
+            }
+          }
+          
+          @-webkit-keyframes bounce-in-down {
+            0% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -75%);
+            }
+          
+            100% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -50%);
+            }
+          }
+          
+          @keyframes bounce-in-down {
+            0% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -75%);
+              transform: translate(-50%, -75%);
+            }
+          
+            100% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+            }
+          }
+          
+          @-webkit-keyframes bounce-out-up {
+            0% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -50%);
+            }
+          
+            100% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -75%);
+            }
+          }
+          
+          @keyframes bounce-out-up {
+            0% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+            }
+          
+            100% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -75%);
+              transform: translate(-50%, -75%);
+            }
+          }
+          
+          @-webkit-keyframes bounce-in-up {
+            0% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, 0);
+            }
+          
+            80% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -0.32rem);
+            }
+          
+            100% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -0.266667rem);
+            }
+          }
+          
+          @keyframes bounce-in-up {
+            0% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, 0);
+              transform: translate(-50%, 0);
+            }
+          
+            80% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -0.32rem);
+              transform: translate(-50%, -0.32rem);
+            }
+          
+            100% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -0.266667rem);
+              transform: translate(-50%, -0.266667rem);
+            }
+          }
+          
+          @-webkit-keyframes bounce-out-down {
+            0% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -0.266667rem);
+            }
+          
+            100% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, 0);
+            }
+          }
+          
+          @keyframes bounce-out-down {
+            0% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -0.266667rem);
+              transform: translate(-50%, -0.266667rem);
+            }
+          
+            100% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, 0);
+              transform: translate(-50%, 0);
+            }
+          }@charset "UTF-8";
+          
+          ::-moz-focus-inner {
+            border-color: transparent;
+          }
+          
+          .dialog {
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 10001;
+            width: 100%;
+            height: 100%;
+          }
+          
+          .dialog-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10002;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+          }
+          
+          .dialog-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 10003;
+            width: 8rem;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            line-height: 1.5;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 0.133333rem;
+          }
+          
+          .dialog-content * {
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            outline: none;
+            -moz-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            font-family: Helvetica;
+            font-size: 0.346667rem;
+          }
+          
+          .dialog-btn,
+          .dialog-btn-hl {
+            position: relative;
+            display: inline-block;
+            height: 0.586667rem;
+            line-height: 0.586667rem;
+            color: #007aff;
+            font-size: 0.346667rem;
+            font-weight: 400;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: transparent;
+          }
+          
+          .dialog-btn:hover,
+          .dialog-btn:active,
+          .dialog-btn-hl:hover,
+          .dialog-btn-hl:active {
+            background-color: rgba(0, 0, 0, 0.05);
+          }
+          
+          .dialog-content-hd {
+            position: relative;
+            padding: 0.266667rem 0.266667rem 0.133333rem;
+            margin-bottom: -0.333333rem;
+            text-align: center;
+          }
+          
+          .dialog-content-hd .dialog-content-title {
+            font-size: 0.346667rem;
+            font-weight: 400;
+            color: #333;
+          }
+          
+          .dialog-content-hd .dialog-btn-close {
+            display: block;
+            width: 0.346667rem;
+            height: 0.346667rem;
+            overflow: hidden;
+            position: absolute;
+            top: 0.24rem;
+            right: 0.2rem;
+            cursor: pointer;
+            background-color: transparent;
+          }
+          
+          .dialog-content-hd .dialog-btn-close span {
+            display: none;
+          }
+          
+          .dialog-content-hd .dialog-btn-close:before,
+          .dialog-content-hd .dialog-btn-close:after {
+            content: "";
+            display: block;
+            width: 0.24rem;
+            height: 0.013333rem;
+            background-color: #808080;
+            position: absolute;
+            top: 0.173333rem;
+            right: 0.04rem;
+          }
+          
+          .dialog-content-hd .dialog-btn-close:before {
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+          }
+          
+          .dialog-content-hd .dialog-btn-close:after {
+            -webkit-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+          }
+          
+          .dialog-content-bd {
+            margin: 0.333333rem 0.266667rem;
+            color: #666;
+            text-align: center;
+          }
+          
+          .dialog-content-bd p {
+            padding: 0.066667rem 0;
+          }
+          
+          .content-scroll {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+          }
+          
+          .dialog-content-ft {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            position: relative;
+            font-size: 0;
+          }
+          
+          .dialog-content-ft:after {
+            content: " ";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 0.013333rem;
+            border-top: 0.013333rem solid #d5d5d5;
+            color: #d5d5d5;
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(0.5);
+            -ms-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+          }
+          
+          .dialog-content-ft .dialog-btn {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            display: block;
+          }
+          
+          .dialog-content-ft .dialog-btn:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0.013333rem;
+            height: 100%;
+            border-left: 0.013333rem solid #d5d5d5;
+            color: #d5d5d5;
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleX(0.5);
+            -ms-transform: scaleX(0.5);
+            transform: scaleX(0.5);
+          }
+          
+          .dialog-content-ft .dialog-btn:first-child {
+            border-bottom-left-radius: 0.106667rem;
+          }
+          
+          .dialog-content-ft .dialog-btn:first-child:after {
+            border-left: none;
+          }
+          
+          .dialog-content-ft .dialog-btn:last-child {
+            border-bottom-right-radius: 0.106667rem;
+          }
+          
+          .dialog-content-ft.stacked {
+            -webkit-flex-flow: column;
+            -ms-flex-flow: column;
+            flex-flow: column;
+            display: block;
+          }
+          
+          .dialog-content-ft.stacked:after {
+            border: none;
+          }
+          
+          .dialog-content-ft.stacked .dialog-btn {
+            position: relative;
+            display: block;
+            width: 100%;
+          }
+          
+          .dialog-content-ft.stacked .dialog-btn:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 0.013333rem;
+            border-top: 0.013333rem solid #d5d5d5;
+            color: #d5d5d5;
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(0.5);
+            -ms-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+          }
+          
+          .dialog-open .dialog-content,
+          .dialog-open .dialog-overlay,
+          .dialog-close .dialog-content,
+          .dialog-close .dialog-overlay {
+            -webkit-animation-duration: .25s;
+            animation-duration: .25s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+          }
+          
+          .dialog-open .dialog-content {
+            -webkit-animation-name: zoom-in;
+            animation-name: zoom-in;
+          }
+          
+          .dialog-open .dialog-overlay {
+            -webkit-animation-name: fade-in;
+            animation-name: fade-in;
+          }
+          
+          .dialog-close .dialog-content {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          .dialog-close .dialog-overlay {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          [data-style=android] .dialog-content {
+            box-sizing: content-box;
+            border-radius: 0;
+            background-color: #fff;
+          }
+          
+          [data-style=android] .dialog-content-hd {
+            text-align: left;
+            padding: 0.266667rem 0.266667rem 0;
+            margin-bottom: -0.133333rem;
+          }
+          
+          [data-style=android] .dialog-content-hd .dialog-btn-close {
+            top: 0.2rem;
+            right: 0.2rem;
+          }
+          
+          [data-style=android] .dialog-content-bd {
+            margin: 0.333333rem 0.266667rem;
+            text-align: left;
+          }
+          
+          [data-style=android] .dialog-content-ft {
+            display: block;
+            padding: 0.106667rem;
+            margin-top: -0.133333rem;
+            text-align: right;
+          }
+          
+          [data-style=android] .dialog-content-ft:after {
+            border: none;
+          }
+          
+          [data-style=android] .dialog-content-ft .dialog-btn {
+            display: inline-block;
+            min-width: 0.8rem;
+            height: 0.48rem;
+            line-height: 0.48rem;
+            overflow: hidden;
+            padding: 0 0.173333rem;
+            font-size: 0.346667rem;
+            color: #808080;
+            text-align: center;
+            border-radius: 0.026667rem;
+          }
+          
+          [data-style=android] .dialog-content-ft .dialog-btn:after {
+            border: none;
+          }
+          
+          [data-style=android] .dialog-content-ft .dialog-btn-confirm,
+          [data-style=android] .dialog-content-ft .dialog-btn-hl {
+            color: #00bbd3;
+          }
+          
+          [data-style=android] .dialog-content-ft.stacked .dialog-btn {
+            display: block;
+            text-align: right;
+            width: 100%;
+          }
+          
+          [data-style=android] .dialog-content-ft-border:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 0.013333rem;
+            border-top: 0.013333rem solid #d5d5d5;
+            color: #d5d5d5;
+            -webkit-transform-origin: 0 0;
+            -ms-transform-origin: 0 0;
+            transform-origin: 0 0;
+            -webkit-transform: scaleY(0.5);
+            -ms-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+          }
+          
+          [data-style=android] .ripple {
+            border-radius: 1333.32rem;
+            pointer-events: none;
+            position: absolute;
+            width: 2.666667rem;
+            height: 2.666667rem;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            -webkit-transform: scale(0);
+            -ms-transform: scale(0);
+            transform: scale(0);
+            animation: ripple .75s ease-out;
+            -webkit-animation: ripple .75s ease-out;
+          }
+          
+          @-webkit-keyframes ripple {
+            0% {
+              -webkit-transform: scale(0);
+              opacity: .5;
+            }
+          
+            100% {
+              -webkit-transform: scale(2);
+              opacity: 0;
+            }
+          }
+          
+          @keyframes ripple {
+            0% {
+              -webkit-transform: scale(0);
+              transform: scale(0);
+              opacity: .5;
+            }
+          
+            100% {
+              -webkit-transform: scale(2);
+              transform: scale(2);
+              opacity: 0;
+            }
+          }
+          
+          [data-style=android].dialog-open .dialog-content {
+            -webkit-animation-name: bounce-in-down;
+            animation-name: bounce-in-down;
+          }
+          
+          [data-style=android].dialog-open .dialog-overlay {
+            -webkit-animation-name: fade-in;
+            animation-name: fade-in;
+          }
+          
+          [data-style=android].dialog-close .dialog-content {
+            -webkit-animation-name: bounce-out-up;
+            animation-name: bounce-out-up;
+          }
+          
+          [data-style=android].dialog-close .dialog-overlay {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          .dialog-toast .dialog-overlay {
+            background-color: transparent;
+          }
+          
+          .dialog-toast .dialog-content {
+            width: 6.666667rem;
+            height: 1.44rem;
+            border-radius: 0.133333rem;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: table;
+          }
+          
+          .dialog-toast .dialog-content-bd {
+            margin: 0;
+            padding: 0;
+            font-size: 0;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+          }
+          
+          .dialog-toast .dialog-content-bd p {
+            margin: 0;
+            padding: 0;
+          }
+          
+          .dialog-toast .info-icon {
+            width: 0.746667rem;
+            max-width: 0.746667rem;
+          }
+          
+          .dialog-toast .info-text {
+            display: block;
+            width: 90%;
+            margin: 0.16rem auto 0;
+            font-size: 0.346667rem;
+            color: #fff;
+          }
+          
+          .dialog-toast.dialog-open .dialog-content,
+          .dialog-toast.dialog-open .dialog-overlay {
+            -webkit-animation-duration: .5s;
+            animation-duration: .5s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+          }
+          
+          .dialog-toast.dialog-close .dialog-content,
+          .dialog-toast.dialog-close .dialog-overlay {
+            -webkit-animation-duration: .35s;
+            animation-duration: .35s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+          }
+          
+          .dialog-toast.dialog-open .dialog-content {
+            -webkit-animation-name: fade-in;
+            animation-name: fade-in;
+          }
+          
+          .dialog-toast.dialog-open .dialog-overlay {
+            -webkit-animation-name: fade-in;
+            animation-name: fade-in;
+          }
+          
+          .dialog-toast.dialog-close .dialog-content {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          .dialog-toast.dialog-close .dialog-overlay {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          .dialog-notice .dialog-overlay {
+            background-color: transparent;
+          }
+          
+          .dialog-notice .dialog-content {
+            display: table;
+            width: auto;
+            max-width: 85%;
+            border-radius: 0.053333rem;
+            background-color: rgba(0, 0, 0, 0.8);
+          }
+          
+          .dialog-notice .dialog-content-bd {
+            margin: 0;
+            font-size: 0;
+            padding: 0.133333rem 0.2rem;
+            line-height: normal;
+          }
+          
+          .dialog-notice .info-icon {
+            width: 0.213333rem;
+            max-width: 0.213333rem;
+            margin: 0 0.026667rem;
+            vertical-align: middle;
+            position: relative;
+            top: -0.013333rem;
+          }
+          
+          .dialog-notice .info-text {
+            margin: 0 0.026667rem;
+            font-size: 0.32rem;
+            color: #fff;
+            line-height: 1.3;
+            vertical-align: middle;
+          }
+          
+          .dialog-notice.dialog-open .dialog-content,
+          .dialog-notice.dialog-open .dialog-overlay {
+            -webkit-animation-duration: .1s;
+            animation-duration: .1s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+          }
+          
+          .dialog-notice.dialog-close .dialog-content,
+          .dialog-notice.dialog-close .dialog-overlay {
+            -webkit-animation-duration: .3s;
+            animation-duration: .3s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+          }
+          
+          .dialog-notice.dialog-open .dialog-content {
+            -webkit-animation-name: fade-in;
+            animation-name: fade-in;
+          }
+          
+          .dialog-notice.dialog-open .dialog-overlay {
+            -webkit-animation-name: fade-in;
+            animation-name: fade-in;
+          }
+          
+          .dialog-notice.dialog-close .dialog-content {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          .dialog-notice.dialog-close .dialog-overlay {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          .dialog-notice-bottom .dialog-content {
+            top: auto;
+            bottom: 0;
+            -webkit-transform: translate(-50%, -0.266667rem);
+            -ms-transform: translate(-50%, -0.266667rem);
+            transform: translate(-50%, -0.266667rem);
+          }
+          
+          .dialog-notice-bottom.dialog-open .dialog-content,
+          .dialog-notice-bottom.dialog-open .dialog-overlay,
+          .dialog-notice-bottom.dialog-close .dialog-content,
+          .dialog-notice-bottom.dialog-close .dialog-overlay {
+            -webkit-animation-duration: .3s;
+            animation-duration: .3s;
+            -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
+          }
+          
+          .dialog-notice-bottom.dialog-open .dialog-content {
+            -webkit-animation-name: bounce-in-up;
+            animation-name: bounce-in-up;
+          }
+          
+          .dialog-notice-bottom.dialog-close .dialog-content {
+            -webkit-animation-name: fade-out;
+            animation-name: fade-out;
+          }
+          
+          @media screen and (min-width: 1023px) {
+            .dialog-content {
+              max-width: 40%;
+            }
+          }
+          
+          @media screen and (min-width: 767px) {
+            .dialog-content {
+              max-width: 60%;
+            }
+          }
+          
+          @-webkit-keyframes zoom-in {
+            0% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -50%) scale(1.2, 1.2);
+            }
+          
+            100% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -50%) scale(1, 1);
+            }
+          }
+          
+          @keyframes zoom-in {
+            0% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -50%) scale(1.2, 1.2);
+              transform: translate(-50%, -50%) scale(1.2, 1.2);
+            }
+          
+            100% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -50%) scale(1, 1);
+              transform: translate(-50%, -50%) scale(1, 1);
+            }
+          }
+          
+          @-webkit-keyframes zoom-out {
+            0% {
+              opacity: 1;
+            }
+          
+            100% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -50%) scale(0.8, 0.8);
+            }
+          }
+          
+          @keyframes zoom-out {
+            0% {
+              opacity: 1;
+            }
+          
+            100% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -50%) scale(0.8, 0.8);
+              transform: translate(-50%, -50%) scale(0.8, 0.8);
+            }
+          }
+          
+          @-webkit-keyframes fade-in {
+            0% {
+              opacity: 0;
+            }
+          
+            100% {
+              opacity: 1;
+            }
+          }
+          
+          @-webkit-keyframes fade-in {
+            0% {
+              opacity: 0;
+            }
+          
+            100% {
+              opacity: 1;
+            }
+          }
+          
+          @keyframes fade-out {
+            0% {
+              opacity: 1;
+            }
+          
+            100% {
+              opacity: 0;
+            }
+          }
+          
+          @-webkit-keyframes fade-out {
+            0% {
+              opacity: 1;
+            }
+          
+            100% {
+              opacity: 0;
+            }
+          }
+          
+          @-webkit-keyframes bounce-in-down {
+            0% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -75%);
+            }
+          
+            100% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -50%);
+            }
+          }
+          
+          @keyframes bounce-in-down {
+            0% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -75%);
+              transform: translate(-50%, -75%);
+            }
+          
+            100% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+            }
+          }
+          
+          @-webkit-keyframes bounce-out-up {
+            0% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -50%);
+            }
+          
+            100% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -75%);
+            }
+          }
+          
+          @keyframes bounce-out-up {
+            0% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+            }
+          
+            100% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, -75%);
+              transform: translate(-50%, -75%);
+            }
+          }
+          
+          @-webkit-keyframes bounce-in-up {
+            0% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, 0);
+            }
+          
+            80% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -0.32rem);
+            }
+          
+            100% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -0.266667rem);
+            }
+          }
+          
+          @keyframes bounce-in-up {
+            0% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, 0);
+              transform: translate(-50%, 0);
+            }
+          
+            80% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -0.32rem);
+              transform: translate(-50%, -0.32rem);
+            }
+          
+            100% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -0.266667rem);
+              transform: translate(-50%, -0.266667rem);
+            }
+          }
+          
+          @-webkit-keyframes bounce-out-down {
+            0% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -0.266667rem);
+            }
+          
+            100% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, 0);
+            }
+          }
+          
+          @keyframes bounce-out-down {
+            0% {
+              opacity: 1;
+              -webkit-transform: translate(-50%, -0.266667rem);
+              transform: translate(-50%, -0.266667rem);
+            }
+          
+            100% {
+              opacity: 0;
+              -webkit-transform: translate(-50%, 0);
+              transform: translate(-50%, 0);
+            }
+          }
+          
+          .page-loading {
+            display: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 99;
+          }
+          
+          .page-loading .spinner {
+            width: 0.8rem;
+            height: 0.8rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -0.4rem;
+            margin-left: -0.4rem;
+          }
+          
+          .page-loading .double-bounce1,
+          .page-loading .double-bounce2 {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #67CF22;
+            opacity: 0.6;
+            position: absolute;
+            top: 0;
+            left: 0;
+            -webkit-animation: bounce 2.0s infinite ease-in-out;
+            animation: bounce 2.0s infinite ease-in-out;
+          }
+          
+          .page-loading .double-bounce2 {
+            -webkit-animation-delay: -1.0s;
+            animation-delay: -1.0s;
+          }
+          
+          @-webkit-keyframes bounce {
+            0%, 100% {
+              -webkit-transform: scale(0);
+            }
+          
+            50% {
+              -webkit-transform: scale(1);
+            }
+          }
+          
+          @keyframes bounce {
+            0%, 100% {
+              transform: scale(0);
+              -webkit-transform: scale(0);
+            }
+          
+            50% {
+              transform: scale(1);
+              -webkit-transform: scale(1);
+            }
+          }
+          
+          * {
+            margin: 0;
+            padding: 0;
+            outline: none;
+          }
+          
+          *:not(input, textarea) {
+            -webkit-touch-callout: inherit;
+            -webkit-user-select: auto;
+            user-select: auto;
+          }
+          
+          body {
+            width: 100%;
+            font-family: Microsoft YaHei;
+            font-size: 0.186667rem;
+            color: #878787;
+            -webkit-touch-callout: inherit;
+            background-color: #fff;
+          }
+          
+          a {
+            color: #878787;
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+          }
+          
+          i {
+            font-style: normal;
+          }
+          
+          a:hover {
+            text-decoration: none;
+          }
+          
+          button,
+          input,
+          select,
+          textarea {
+            font-size: 100%;
+            margin: 0;
+            padding: 0;
+            outline: none;
+            border: none;
+            background: transparent;
+          }
+          
+          dt,
+          dd {
+            display: inline-block;
+          }
+          
+          textarea,
+          input {
+            resize: none;
+            outline: none;
+          }
+          
+          textarea {
+            resize: none;
+            -webkit-appearance: none;
+          }
+          
+          ul,
+          ol,
+          li {
+            list-style: none;
+          }
+          
+          em {
+            font-style: normal;
+          }
+          
+          .mt10 {
+            margin-top: 0.133333rem;
+          }
+          
+          .mt20 {
+            margin-top: 0.266667rem;
+          }
+          
+          .mt40 {
+            margin-top: 0.533333rem;
+          }
+          
+          .mt50 {
+            margin-top: 0.666667rem;
+          }
+          
+          .mt60 {
+            margin-top: 0.8rem;
+          }
+          
+          .mt100 {
+            margin-top: 1.333333rem;
+          }
+          
+          .mt110 {
+            margin-top: 1.466667rem;
+          }
+          
+          .clearfix:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+          }
+          
+          .fl {
+            float: left;
+          }
+          
+          .fr {
+            float: right;
+          }
+          
+          body {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 10rem;
+            margin-left: -5rem;
+            overflow: hidden;
+          }
+          
+          /*loading*/
+          
+          .loading {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background: #4f7812;
+          }
+          
+          .loading-front {
+            height: 40%;
+            background: -webkit-linear-gradient(top, rgba(150, 148, 0, 0), #969400);
+            /* Safari 5.1 - 6 */
+            background: -o-linear-gradient(top, rgba(150, 148, 0, 0), #969400);
+            /* Opera 11.1 - 12*/
+            background: -moz-linear-gradient(top, rgba(150, 148, 0, 0), #969400);
+            /* Firefox 3.6 - 15*/
+            background: linear-gradient(to top, rgba(150, 148, 0, 0), #969400);
+            /* 标准的语法 */
+          }
+          
+          .loading .logo {
+            display: block;
+            margin: 0 auto;
+            width: 4.346667rem;
+            height: 2.36rem;
+            background-image: url(/ncdh/images/loading-logo.png?v=110138def6a437a038b73cbeacc7ca79);
+            background-size: 4.346667rem;
+          }
+          
+          .loading .progress-block {
+            background-color: #6cb400;
+            width: 4.426667rem;
+            height: 0.4rem;
+            margin: 0.053333rem auto;
+            border: 0.04rem solid #335600;
+            border-radius: 0.226667rem;
+          }
+          
+          .loading .progress-bar {
+            width: 0;
+            height: 0.4rem;
+            border-radius: 0.226667rem;
+            background-image: url(/ncdh/images/loading-progress.png?v=61af80913e195b84f737a010b4c60a1d);
+            background-repeat: repeat-x;
+          }
+          
+          /*main*/
+          
+          .page-main {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background: #4f7812 url(/ncdh/images/farmer.jpg?v=122ebab539284ae603ff7496ef454b06) no-repeat 0 0;
+            background-size: 10rem;
+          }
+          
+          .page-main .bg {
+            position: absolute;
+            top: 2.533333rem;
+            left: 0.32rem;
+            z-index: 5;
+            width: 9.36rem;
+            height: 9.693333rem;
+            background-image: url(/ncdh/images/main.png?v=7a9399288663cd8f44320abefec7148d);
+            background-size: 9.36rem;
+          }
+          
+          .page-main .next-share {
+            position: absolute;
+            top: 0.12rem;
+            left: 0.24rem;
+            z-index: 10;
+            width: 2.933333rem;
+            height: 0.64rem;
+            color: #edba5d;
+            font-size: 0.346667rem;
+            line-height: 0.64rem;
+            text-align: center;
+            background-color: #4a3534;
+            border-radius: 0.053333rem;
+            box-shadow: 0 0.026667rem 0 0 rgba(0, 0, 0, 0.22);
+          }
+          
+          .page-main .prev-best {
+            position: absolute;
+            top: 1.093333rem;
+            left: 1.146667rem;
+            width: 1.333333rem;
+            padding-left: 0.16rem;
+            height: 0.826667rem;
+            color: #edba5d;
+            font-size: 0.426667rem;
+            line-height: 0.826667rem;
+            text-align: center;
+          }
+          
+          .page-main .butn-more {
+            position: absolute;
+            top: 0.12rem;
+            right: 0.2rem;
+            width: 0.8rem;
+            height: 0.64rem;
+          }
+          
+          .butns-float {
+            display: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+          }
+          
+          .butns-float .mask {
+            opacity: 0;
+            z-index: 20;
+          }
+          
+          .butns-float .content {
+            position: absolute;
+            right: 0.226667rem;
+            top: 0.893333rem;
+            width: 2.533333rem;
+            padding: 0 0.266667rem;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 20;
+          }
+          
+          .butns-float a {
+            display: block;
+            font-size: 0.346667rem;
+            line-height: 1.04rem;
+            color: #edba5d;
+            border-bottom: 0.013333rem solid #777777;
+            text-align: center;
+          }
+          
+          .butns-float a:last-child {
+            border-bottom: none;
+          }
+          
+          .page-main .project-state {
+            position: absolute;
+            right: 2.266667rem;
+            top: 1.093333rem;
+            width: 0.866667rem;
+            text-align: center;
+            font-size: 0.346667rem;
+            color: #492107;
+            line-height: 0.4rem;
+          }
+          
+          .page-main .progress-block {
+            position: absolute;
+            right: 0.466667rem;
+            top: 1.093333rem;
+            width: 1.626667rem;
+            color: #edba5d;
+            font-size: 0.4rem;
+            line-height: 0.613333rem;
+            text-align: center;
+          }
+          
+          .page-main .progress-block .progress-front {
+            width: 0;
+            height: 0.106667rem;
+            border-radius: 0.053333rem;
+            background: #ffcc00;
+          }
+          
+          .area-betting {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2.066667rem;
+            height: 1.6rem;
+          }
+          
+          .area-betting.uping .icon-up {
+            display: block;
+          }
+          
+          .area-betting .icon-up {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            width: 0.586667rem;
+            height: 0.586667rem;
+            background-image: url(/ncdh/images/up.png?v=e422c94092030175dcaa1372da1a45ed);
+            background-size: 0.586667rem;
+          }
+          
+          .area-betting .betting-block {
+            position: absolute;
+            right: 0;
+            top: 0;
+            color: #fff;
+            font-size: 0.346667rem;
+            min-width: 0.773333rem;
+            line-height: 0.426667rem;
+            text-align: center;
+          }
+          
+          .area-betting .total-block {
+            display: none;
+            position: relative;
+            padding: 0 0.066667rem;
+            background: rgba(0, 52, 61, 0.9);
+          }
+          
+          .area-betting.active .total-block {
+            display: block;
+          }
+          
+          .area-betting.current .total-block {
+            display: block;
+          }
+          
+          .area-betting .total-block::after {
+            content: "";
+            position: absolute;
+            bottom: -0.106667rem;
+            right: 0;
+            width: 0.12rem;
+            height: 0.106667rem;
+            background-size: 0.12rem;
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAICAYAAAArzdW1AAAAaElEQVQYlX3Puw2DQBAE0OdPAScacOIqCIhxSgNkVEBTdhOmCDrAuUmRLB0REjpx3nD0NJo9ud2j/EX01z9gQYtnDs1o8IYj9MED4xacEzCi3IMUDagwpdUbeqHG92jgRSgCOvwyT1gBzm8QB2Vi8v0AAAAASUVORK5CYII=");
+          }
+          
+          .area-betting .mybetting-block {
+            display: none;
+            position: relative;
+            padding: 0 0.066667rem;
+            background: rgba(227, 47, 60, 0.9);
+          }
+          
+          .area-betting.active .mybetting-block {
+            display: block;
+          }
+          
+          .area-betting .mybetting-block::after {
+            content: "";
+            position: absolute;
+            bottom: -0.106667rem;
+            right: 0;
+            width: 0.12rem;
+            height: 0.106667rem;
+            background-size: 0.12rem;
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAICAYAAAArzdW1AAAAaElEQVQYlX3PMQqCYBgG4EczhAbpOjo059oF2tqFLlWXyEN4A9ttFQSbBPnx9xtfHl7eL2lOxSx+M57ZDhhxxyuGfrjhA1voixrdEqQB6FCtQYhaXNCH1Qt644pha+ChPOZnPDBFnvAHJHYQcCBGC+oAAAAASUVORK5CYII=");
+          }
+          
+          .area-yangzhi {
+            left: 0.106667rem;
+            width: 3.24rem;
+            height: 2.066667rem;
+          }
+          
+          .area-zaihai {
+            left: 3.64rem;
+            width: 2.2rem;
+            height: 2.066667rem;
+          }
+          
+          .area-zhongzhi {
+            left: 6.106667rem;
+            width: 3.2rem;
+            height: 2.066667rem;
+          }
+          
+          .area-jiachu {
+            top: 2.84rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-shuichan {
+            top: 2.84rem;
+            left: 2.16rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-liangshi {
+            top: 2.84rem;
+            left: 5.253333rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-shucai {
+            left: 7.426667rem;
+            top: 2.84rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-tuzhu {
+            top: 4.4rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-haiyu {
+            left: 2.16rem;
+            top: 4.4rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-xiaomai {
+            left: 5.253333rem;
+            top: 4.4rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-qingcai {
+            left: 7.426667rem;
+            top: 4.4rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-nainiu {
+            top: 6.2rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-xia {
+            left: 2.16rem;
+            top: 6.2rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-shuidao {
+            left: 5.253333rem;
+            top: 6.2rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-qiezi {
+            left: 7.426667rem;
+            top: 6.2rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-muji {
+            top: 8.066667rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-panxie {
+            left: 2.16rem;
+            top: 8.066667rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-hongshu {
+            left: 5.253333rem;
+            top: 8.066667rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          .area-xihongshi {
+            left: 7.426667rem;
+            top: 8.066667rem;
+            width: 2.04rem;
+            height: 1.373333rem;
+          }
+          
+          /*page-users*/
+          
+          .page-users {
+            position: fixed;
+            bottom: 1.333333rem;
+            left: 50%;
+            width: 10rem;
+            margin-left: -5rem;
+            padding: 0 0.32rem;
+            height: 1.733333rem;
+            border-radius: 0.2rem;
+            background: #202f09;
+            border-top: 0.053333rem solid rgba(32, 47, 9, 0.2);
+            box-sizing: border-box;
+          }
+          
+          .page-users .users-block {
+            float: left;
+            position: relative;
+            text-align: center;
+            margin-top: -0.666667rem;
+            text-align: center;
+            width: 1.733333rem;
+            color: #fff;
+            font-size: 0.32rem;
+            line-height: 0.373333rem;
+            border-radius: 50%;
+          }
+          
+          .page-users .users-block p {
+            width: 1.733333rem;
+            line-height: 0.4rem;
+            overflow: hidden;
+            overflow: hidden;
+            -ms-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          
+          .page-users .users-block .plus {
+            position: absolute;
+            top: 1rem;
+            left: 0;
+            padding: 0.026667rem 0;
+            width: 1.333333rem;
+            font-size: 0.32rem;
+            line-height: 0.32rem;
+            background: #fec62e;
+            border-radius: 0.186667rem;
+          }
+          
+          .page-users .users-block:nth-child(3) .plus {
+            /*top:105px;*/
+            left: 0.4rem;
+          }
+          
+          .page-users .users-block:nth-child(5) {
+            margin-right: 0;
+          }
+          
+          .page-users .users-block:nth-child(3) {
+            width: 2.133333rem;
+            margin-left: 0.066667rem;
+            margin-right: 0.066667rem;
+            margin-top: -0.733333rem;
+            border-top: 0.053333rem solid rgba(32, 47, 9, 0.2);
+          }
+          
+          .page-users .users-block:nth-child(3) .img-wrap {
+            width: 1.866667rem;
+            border-radius: 50%;
+            border: 0.133333rem solid #202f09;
+          }
+          
+          .page-users .users-block:nth-child(3) img {
+            width: 1.866667rem;
+            height: 1.866667rem;
+            border: 0.013333rem solid #fff;
+          }
+          
+          .page-users .users-block img {
+            width: 1.333333rem;
+            height: 1.333333rem;
+            border-radius: 50%;
+          }
+          
+          /*page-bottom*/
+          
+          .page-bottom {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            margin-left: -5rem;
+            width: 10rem;
+            height: 1.8rem;
+            background-image: url(/ncdh/images/bottom-nav.png?v=15c9767f2a5d5a228a11248fbf569829);
+            background-size: 10rem;
+            background-repeat: no-repeat;
+          }
+          
+          .page-bottom .my-jinbi {
+            position: absolute;
+            top: 0.933333rem;
+            left: 0.346667rem;
+            width: 2.266667rem;
+            padding-left: 0.2rem;
+            height: 0.693333rem;
+            line-height: 0.693333rem;
+            color: #ffcc00;
+            font-size: 0.32rem;
+          }
+          
+          .page-bottom .my-zs {
+            position: absolute;
+            bottom: 0.933333rem;
+            left: 0.64rem;
+            min-width: 1.933333rem;
+            text-align: center;
+            line-height: 0.426667rem;
+            font-size: 0.32rem;
+            color: #96694f;
+            background: rgba(39, 23, 22, 0.6);
+            border-radius: 0.213333rem;
+          }
+          
+          .page-bottom .my-zs:before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: -0.026667rem;
+            left: -0.266667rem;
+            width: 0.666667rem;
+            height: 0.52rem;
+            background-image: url(/ncdh/images/zs.png?v=e58586cb315fd5b8bb4943951d72cae5);
+            background-size: 0.666667rem;
+          }
+          
+          .page-bottom .butn-cancel {
+            position: absolute;
+            right: 0.293333rem;
+            bottom: 0.2rem;
+            width: 0.453333rem;
+            height: 0.453333rem;
+            padding: 0.2rem 0.306667rem 0.506667rem;
+          }
+          
+          .page-bottom .betting-wrap {
+            margin-left: 3.266667rem;
+            margin-top: 0.466667rem;
+          }
+          
+          .page-bottom .betting-wrap .betting-block {
+            float: left;
+            position: relative;
+            width: 1.533333rem;
+            padding-top: 0.666667rem;
+            text-align: center;
+            font-size: 0.32rem;
+            line-height: 0.453333rem;
+            color: #fff;
+            margin-right: 0.186667rem;
+            opacity: .5;
+          }
+          
+          .page-bottom .betting-wrap .icon-jinbi {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: -0.453333rem;
+            width: 0.92rem;
+            height: 0.92rem;
+            background-image: url(/ncdh/images/jinbi.png?v=fa003816943ba5c02aa1273ffaef6963);
+            background-size: 0.92rem;
+            transition: all 1s;
+            -webkit-transition: all 1s;
+          }
+          
+          .page-bottom .betting-wrap p {
+            position: relative;
+          }
+          
+          .page-bottom .betting-wrap .betting-block.active {
+            opacity: 1;
+          }
+          
+          .page-bottom .betting-block.active .icon-jinbi {
+            animation: bounce 1s forwards;
+            -webkit-animation: bounce 1s forwards;
+          }
+          
+          .page-bottom .betting-block p {
+            border-radius: 0.226667rem;
+            background: rgba(0, 0, 0, 0.5);
+          }
+          
+          .page-bottom .butn-cancel span {
+            display: inline-block;
+            width: 0.453333rem;
+            height: 0.453333rem;
+            background-size: 0.453333rem;
+            background-repeat: no-repeat;
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAhCAYAAAC803lsAAAFC0lEQVRYhbWYa0wUVxSAv7m78lhYFhAqiFQiUlBsVTbEWjQRXStatQ+jTmMx0WAb1CI+a7W2alHTkNQEfjSt1aT2h7R/rNa0miAm1RpBsTZWqvjoGlB8VASUBdzsTn/MDI7rgmjHk+yPc8+5Z74999w7544092U7fRALkAvkAdlAGhANWIEWwA2cASqBA4CnL0EBKiprQQvUm0QAhcByYGAPPvHaLxtYBNwHdgJfAE19BRK92KYCdUBpLxDBJBJYBtQDxYDUl0nBMiIB24A1xiAWq7UlLj6hanDqSzWZo7Ivp6YPbwkJCfVdvXIx6uzp6pQrF8+PvtXUMOlBV9cgA9B2YBLwLmqmehQpoEYk1LQu6AawWFrSho3cWbS+ZF9s/ABvb8H8Pp9UtnX9uD9OHFvc1dWRYjCdBCYDrYFz9BoJBNkCrNMVe1R0TeHqjRuzxo6/C3iBZi2YR9NBLeRwIAroD4S1NP/bb9OKDxY3NbplQ+zDwBTA9ySQaagVLwH0jx/wa+k3P2yx2e1dQANwW3Y5/b1lRAscA7wIhH9atHBufd2fxQZzCbChN5AI1MJ8EcDuiKku/37/ijCb7S5wSXY5e12SIDCSFitxdYG8qMF9caFm8gKjgXOBIPquWaJDWCyW1sJVn20Ks9luAeefFgJAdjkV2eW8Crg/L9u1MyIy6qxm6gdsDjZHoK5xkT6QNnzkjqyx4/8BLssup/K0EAFAN8JstobJ02d9Ceix3gZSg4HkAkmgbtGlazfvNQPCII1ywdKT9qjoGk2XgHnBQKbpSlx8QlXcgMTLz7IcPYn2h9yp6ZkHux8qxNTHQCxW66u6kjR4yAngtlkQBpj27JwJVbquKEoWakk8BFH8/qG6kpCUfLIvW/RZZNL0d+osFkurBhICJBvtVkVRonTFEdPfbfLzXcAM4E7+1LGtQli8Pp96ngkhMv1+fxvqIYkVQ4qab9+8ZzLIWWA/EO71PnjE4Pf7D0B3DZULIUS7bqw5WhVpJkVFZW2n3RGz7wluR4DVIiQ07Jo+0tbanG4mCOCZMXv+XiBo3YXbIutKyr/bVlFZO1BE2h31ukGSRK6ZFLLL6Z0pzz/liI49FmgLCQ1tXLZ+68qhw0ZcB66K+ISk33Wjz+ebTR8bmaeQpuxxE/cYByxWa8u8RcXLR43JaQQuAIqYOSf/kBCiA0BR/KnAG2ZSyC5nR0Hxx0dsEfa/AIQQ7XlvyqumvDXnkgbhAxCjxuRcfyExeb9hbikQYiYM0DTslawKSZK8E6bMXJtfuPwMAS9UAbTMeq9gtySJTm0sA7XxNU1kl7NtyZpNP+fk5n30/soN1cAF2eXsNPoI2eX0jZ88rS41Y8TXhvFi4EMzYWx2+7Wl60qOaxCP9a96P3J98/Yde6IcsccNtjLU1tESOOkZpVmDaAtm7G4VKyprE6+5r2R8UrSgvMNzP9Pgcxw1O6dNAnpEAjs0ZJezKSllSNOG0q+WRdodpwy+rwGngINAPhD3PIACL1j1Q9KH3yzbva84OSVtlyRJesctoXbgu4FDzx1EawH+ttntd0u/rdgxd8GS+dGxcb/xsM0DyAJeNxsk8F4DdHfhg1CvmtKhn35MOvzL3rw7t26M8bTfy1AU5Rgw0QyAni5YgU7hqA1MrD7W6fGIsi3r2k5XHz3Ho5l6fiAG5zDUInWg3mnvyS5n3f+FMII86bMEANop2Ag0astm9iuA/wAw+qOMYAN49AAAAABJRU5ErkJggg==");
+          }
+          
+          .page-bottom .butn-cancel.active span {
+            animation: rotateIn .6s infinite;
+            -webkit-animation: rotateIn .6s infinite;
+          }
+          
+          /*动画金币*/
+          
+          .animate-jinbi {
+            position: absolute;
+            z-index: 6;
+            width: 0.92rem;
+            height: 0.92rem;
+            background-image: url(/ncdh/images/jinbi.png?v=fa003816943ba5c02aa1273ffaef6963);
+            background-size: 0.92rem;
+          }
+          
+          /*dialog*/
+          
+          .dialog-kuaibao {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            display: none;
+            width: 10rem;
+            overflow-x: hidden;
+          }
+          
+          .mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            z-index: 7;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+          }
+          
+          .dialog-kuaibao .content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding-top: 1rem;
+            z-index: 7;
+            width: 10rem;
+            height: 5.333333rem;
+            background-image: url(/ncdh/images/kuaibao_bg.png?v=03c6e4a9267484999912aab6e59c555b);
+            background-size: 10rem;
+          }
+          
+          .dialog-kuaibao.active {
+            display: block;
+          }
+          
+          .dialog-kuaibao.active .content {
+            animation: fadeInDown 0.6s forwards;
+            -webkit-animation: fadeInDown 0.6s forwards;
+          }
+          
+          .kuaibao-block {
+            width: 133.32rem;
+          }
+          
+          .kuaibao-block.fadeout {
+            animation: zoomOut 1s forwards;
+            -webkit-animation: zoomOut 1s forwards;
+          }
+          
+          .kuaibao-block li {
+            display: inline-block;
+            vertical-align: middle;
+            width: 2.933333rem;
+            height: 5.333333rem;
+            line-height: 5.333333rem;
+            padding: 0 0.2rem;
+            text-align: center;
+            font-size: 0.533333rem;
+            color: #fff;
+            background-repeat: no-repeat;
+            background-position: center center;
+          }
+          
+          .kuaibao-block li[data-type="0"] {
+            height: 1.666667rem;
+            background-image: url(/ncdh/images/betting-item/zhu.png?v=d18e84ac100c00bd5b805e2965c7c4f2);
+            background-size: 2.413333rem;
+          }
+          
+          .kuaibao-block li[data-type="1"] {
+            height: 1.733333rem;
+            background-image: url(/ncdh/images/betting-item/nainiu.png?v=dbf130ab2be1a1336b007e8c00a19e82);
+            background-size: 2.52rem;
+          }
+          
+          .kuaibao-block li[data-type="2"] {
+            height: 1.626667rem;
+            background-image: url(/ncdh/images/betting-item/muji.png?v=f034502afcabcef49690659ba78e4a21);
+            background-size: 1.426667rem;
+          }
+          
+          .kuaibao-block li[data-type="3"] {
+            height: 1.013333rem;
+            background-image: url(/ncdh/images/betting-item/haiyu.png?v=bd6f9814c94b674acfca9521d7b82b6a);
+            background-size: 2.293333rem;
+          }
+          
+          .kuaibao-block li[data-type="4"] {
+            height: 1.253333rem;
+            background-image: url(/ncdh/images/betting-item/xia.png?v=c8c4c1ebfc8c56a25603fe83358adf70);
+            background-size: 2.293333rem;
+          }
+          
+          .kuaibao-block li[data-type="5"] {
+            height: 1.36rem;
+            background-image: url(/ncdh/images/betting-item/panxie.png?v=84de26e57f262ab572a60a38864b9418);
+            background-size: 2.186667rem;
+          }
+          
+          .kuaibao-block li[data-type="6"] {
+            height: 1.653333rem;
+            background-image: url(/ncdh/images/betting-item/xiaomai.png?v=adf4d614d78b5e23d002f8496b5e64d7);
+            background-size: 1.466667rem;
+          }
+          
+          .kuaibao-block li[data-type="7"] {
+            height: 1.6rem;
+            background-image: url(/ncdh/images/betting-item/shuidao.png?v=d3eaa2005a155aedce26de8e3fb5407c);
+            background-size: 1.186667rem;
+          }
+          
+          .kuaibao-block li[data-type="8"] {
+            height: 1.106667rem;
+            background-image: url(/ncdh/images/betting-item/hongshu.png?v=e2998fc7f66da6975b5b304e4a4fe97c);
+            background-size: 2.013333rem;
+          }
+          
+          .kuaibao-block li[data-type="9"] {
+            height: 1.466667rem;
+            background-image: url(/ncdh/images/betting-item/qingcai.png?v=5576ca5e0778e4b125030a9998160fa3);
+            background-size: 1.613333rem;
+          }
+          
+          .kuaibao-block li[data-type="10"] {
+            height: 1.386667rem;
+            background-image: url(/ncdh/images/betting-item/qiezi.png?v=fba41d1d53bb97a436d8b6444f7df68e);
+            background-size: 1.746667rem;
+          }
+          
+          .kuaibao-block li[data-type="11"] {
+            height: 1.48rem;
+            background-image: url(/ncdh/images/betting-item/xihongshi.png?v=ba40a15c819daca5bd59fc990c5ffa2a);
+            background-size: 1.853333rem;
+          }
+          
+          .kuaibao-block li[data-type="b"] {
+            height: 1.88rem;
+            background-image: url(/ncdh/images/betting-item/zhaihai2.png?v=b3ea618cd5530deb260840f77375b49a);
+            background-size: 2.106667rem;
+          }
+          
+          .kuaibao-block li img {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+          }
+          
+          .kuaibao-block li:nth-child(1) {
+            width: 9.6rem;
+          }
+          
+          .lottery-block {
+            display: none;
+            position: absolute;
+            top: 1.093333rem;
+            left: 0;
+            width: 100%;
+          }
+          
+          .lottery-block ul {
+            width: 100%;
+            height: 3.666667rem;
+          }
+          
+          .lottery-block ul li {
+            float: left;
+            margin-top: 0.893333rem;
+            width: 2.666667rem;
+            text-align: center;
+            border-radius: 0.2rem;
+          }
+          
+          .lottery-block ul img {
+            width: 100%;
+          }
+          
+          .lottery-block ul li:nth-child(1) {
+            width: 4.266667rem;
+          }
+          
+          .lottery-block li:nth-child(1) .lottry-container {
+            margin: 0;
+            margin-top: 0.506667rem;
+            margin-left: 0.8rem;
+          }
+          
+          .lottery-block li:nth-child(1) .lottry-container {
+            /*display: none;*/
+          }
+          
+          .lottery-block li:nth-child(1) .label {
+            bottom: 0;
+          }
+          
+          .lottery-block .lottry-container {
+            position: relative;
+            width: 1.96rem;
+            height: 1.32rem;
+            border-radius: 0.2rem;
+            margin: 0 auto;
+            margin-top: 0.706667rem;
+            background: rgba(73, 43, 17, 0.9);
+          }
+          
+          .lottery-block .lottry-container.item-yangzhi img {
+            width: 3.12rem;
+          }
+          
+          .lottery-block .lottry-container.item-jiachu img {
+            width: 1.946667rem;
+          }
+          
+          .lottery-block .lottry-container.item-shuichan img {
+            width: 1.946667rem;
+          }
+          
+          .lottery-block .lottry-container.item-zhongzhi img {
+            width: 3.12rem;
+          }
+          
+          .lottery-block .lottry-container.item-liangshi img {
+            width: 1.466667rem;
+          }
+          
+          .lottery-block .lottry-container.item-shucai img {
+            width: 1.44rem;
+          }
+          
+          .lottery-block .lottry-container.item-tuzhu img {
+            width: 2.413333rem;
+          }
+          
+          .lottery-block .lottry-container.item-nainiu img {
+            width: 2.52rem;
+          }
+          
+          .lottery-block .lottry-container.item-muji img {
+            width: 1.426667rem;
+          }
+          
+          .lottery-block .lottry-container.item-haiyu img {
+            width: 2.293333rem;
+          }
+          
+          .lottery-block .lottry-container.item-xia img {
+            width: 2.293333rem;
+          }
+          
+          .lottery-block .lottry-container.item-panxie img {
+            width: 2.186667rem;
+          }
+          
+          .lottery-block .lottry-container.item-xiaomai img {
+            width: 1.466667rem;
+          }
+          
+          .lottery-block .lottry-container.item-shuidao img {
+            width: 1.186667rem;
+          }
+          
+          .lottery-block .lottry-container.item-hongshu img {
+            width: 2.013333rem;
+          }
+          
+          .lottery-block .lottry-container.item-shucai img {
+            width: 1.44rem;
+          }
+          
+          .lottery-block .lottry-container.item-qingcai img {
+            width: 1.613333rem;
+          }
+          
+          .lottery-block .lottry-container.item-qiezi img {
+            width: 1.746667rem;
+          }
+          
+          .lottery-block .lottry-container.item-xihongshi img {
+            width: 1.853333rem;
+          }
+          
+          .lottery-block .lottry-container.item-zhaihai img {
+            width: 2.106667rem;
+          }
+          
+          .lottery-block .lottry-container.item-zhaihai2 img {
+            width: 2.346667rem;
+          }
+          
+          .lottery-block .lottry-container img {
+            margin-top: -0.506667rem;
+          }
+          
+          .lottery-block .lottry-container div {
+            position: absolute;
+            bottom: 0.12rem;
+            left: 50%;
+            width: 1.466667rem;
+            height: 0.453333rem;
+            margin-left: -0.733333rem;
+            line-height: 0.453333rem;
+            text-align: center;
+            font-size: 0.32rem;
+            color: #fff;
+            border-radius: 0.226667rem;
+            background: rgba(0, 0, 0, 0.5);
+          }
+          
+          .lottery-block li:nth-child(1) .label {
+            left: 1.626667rem;
+            margin-left: 0;
+          }
+          
+          .lottery-block li:nth-child(3) img {
+            width: 1.733333rem;
+          }
+          
+          .lottery-block p {
+            width: 9.333333rem;
+            height: 1.066667rem;
+            line-height: 1.066667rem;
+            font-size: 0.426667rem;
+            color: #d19f77;
+            text-align: center;
+            margin: 0 auto;
+            background: #492b11;
+          }
+          
+          .lottery-block p span {
+            color: #dbc103;
+          }
+          
+          .dialog-record {
+            display: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 20;
+          }
+          
+          .dialog-record .content {
+            position: relative;
+            z-index: 7;
+            height: 9.56rem;
+          }
+          
+          .dialog-record .content h3 {
+            position: relative;
+            text-align: center;
+            color: #fff;
+            font-size: 0.4rem;
+            line-height: 1.32rem;
+            background: #5b3513;
+            border-bottom: 0.013333rem solid #40250d;
+          }
+          
+          .dialog-record .content .butn-close {
+            position: absolute;
+            top: 0.506667rem;
+            right: 0.453333rem;
+            padding: 0;
+            margin: 0;
+            width: 0.413333rem;
+            height: 0.413333rem;
+            background-color: none;
+            background-image: url(/ncdh/images/close.png?v=697feae5eaecb2803f62beec27cb540f);
+            background-size: 0.413333rem;
+          }
+          
+          .dialog-record .content .butn-close.active:after {
+            display: none;
+          }
+          
+          .dialog-record .content .butn-back {
+            position: absolute;
+            top: 0.506667rem;
+            left: 0.453333rem;
+            width: 0.24rem;
+            height: 0.48rem;
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAkCAYAAACE7WrnAAAAp0lEQVRIia3WyRHAIAwDQJFJdykK0lMKzAuG24eggP1gSw5ffHDgxesEAiCxUASQAICBCsJADeKFBsQDTRErtEQs0BbRQiKigVSIBKmRHWRCVpAZmUEupIfcSA1RSIZoJEOBRTKUALwnIJzA6l+jsH6O3Nhssl3YatfM2G77TZiUR2pMk5AqTJvZImZpkS1m7bUl5mnaKebt/gFjrpEGY++jgt0klDH874gjx7tsXtgAAAAASUVORK5CYII=");
+          }
+          
+          .dialog-record .content .investmenti-block,
+          .dialog-record .content .record-detail {
+            border-top: 0.026667rem solid #9d6939;
+            background: #72451c;
+            padding: 0.466667rem 0.44rem 0.253333rem 0.413333rem;
+          }
+          
+          .investmenti-block li {
+            float: left;
+            position: relative;
+            width: 4.253333rem;
+            height: 2.093333rem;
+            border-radius: 0.066667rem;
+            margin: 0 0.64rem 0.413333rem 0;
+            background: #a46e3e;
+          }
+          
+          .investmenti-block li:nth-child(2n) {
+            margin-right: 0;
+          }
+          
+          .investmenti-block li .left {
+            width: 2.613333rem;
+            padding-left: 0.266667rem;
+          }
+          
+          .investmenti-block li .right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0.333333rem;
+            padding: 0.266667rem 0.373333rem 0;
+            text-align: center;
+            line-height: 0.4rem;
+            font-size: 0.32rem;
+            color: #5b3513;
+            height: 1.826667rem;
+            background: #f8a523;
+            border-bottom-right-radius: 0.066667rem;
+            border-top-right-radius: 0.066667rem;
+          }
+          
+          .investmenti-block li p:nth-child(1) {
+            line-height: 0.746667rem;
+            color: #fff;
+            font-size: 0.32rem;
+            border-bottom: 0.013333rem solid #cf9664;
+          }
+          
+          .investmenti-block li p:nth-child(2) {
+            line-height: 0.613333rem;
+            color: #fff;
+            font-size: 0.4rem;
+          }
+          
+          .investmenti-block li p:nth-child(3) {
+            line-height: 0.613333rem;
+            font-size: 0.373333rem;
+            color: #cd915c;
+          }
+          
+          .dialog-record .content ul {
+            height: 7.4rem;
+            overflow-y: auto;
+            transition: all ease-out .2s;
+            -webkit-overflow-scrolling: touch;
+          }
+          
+          .dialog-record .content .record-detail {
+            padding: 0;
+            padding-top: 0.733333rem;
+          }
+          
+          .record-detail .left {
+            float: left;
+            padding-left: 0.973333rem;
+            width: 4rem;
+          }
+          
+          .record-detail .left p {
+            color: #e2b78f;
+            font-size: 0.32rem;
+            line-height: 0.426667rem;
+          }
+          
+          .record-detail .left p:nth-child(1) {
+            padding-top: 0.533333rem;
+            font-size: 0.586667rem;
+            line-height: 0.666667rem;
+          }
+          
+          .record-detail .left p:nth-child(2) {
+            font-size: 0.666667rem;
+            line-height: 0.8rem;
+            margin-bottom: 0.133333rem;
+            border-bottom: 0.026667rem solid #e2b78f;
+          }
+          
+          .record-detail .right {
+            position: relative;
+            float: left;
+            padding-top: 1.2rem;
+            width: 4rem;
+            text-align: center;
+          }
+          
+          .record-detail .right .icon-1 {
+            position: absolute;
+            top: 0.666667rem;
+            left: 0;
+            display: block;
+            width: 1.12rem;
+            height: 1.12rem;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 0.32rem;
+            line-height: 1.12rem;
+            background: #d3833d;
+          }
+          
+          .record-detail .right .icon-2 {
+            position: absolute;
+            top: 0;
+            left: 1.453333rem;
+            position: absolute;
+            display: block;
+            width: 1.386667rem;
+            height: 1.386667rem;
+            border-radius: 50%;
+            font-size: 0.32rem;
+            line-height: 1.386667rem;
+            color: #fff;
+            background: #ad6323;
+          }
+          
+          .record-detail .right .icon-3 {
+            position: absolute;
+            top: 1.4rem;
+            left: 3.2rem;
+            position: absolute;
+            display: block;
+            width: 1.12rem;
+            height: 1.12rem;
+            border-radius: 50%;
+            font-size: 0.32rem;
+            line-height: 1.12rem;
+            color: #fff;
+            background: #b8804c;
+          }
+          
+          .record-my {
+            padding-top: 1.4rem;
+            font-size: 0.32rem;
+            color: #ffc087;
+            line-height: 0.8rem;
+          }
+          
+          .record-my p:nth-child(1) {
+            color: #99704a;
+            line-height: 0.32rem;
+            padding-left: 1rem;
+            padding-bottom: 0.4rem;
+          }
+          
+          .record-my p:nth-child(2) {
+            width: 7.666667rem;
+            margin: 0 auto;
+            text-align: center;
+            border-radius: 0.4rem;
+            background-color: #5b3513;
+            margin-bottom: 0.4rem;
+          }
+          
+          .dialog-record .record-my ul {
+            height: auto;
+          }
+          
+          .record-my li {
+            padding-left: 1%;
+            line-height: 0.973333rem;
+          }
+          
+          .record-my li:nth-child(2n+1) {
+            background-color: #623b19;
+          }
+          
+          .record-my li span {
+            display: block;
+            float: left;
+            width: 33%;
+            text-align: center;
+          }
+          
+          .play-block {
+            font-size: 0.346667rem;
+            line-height: 0.613333rem;
+            color: #f1d1b5;
+          }
+          
+          .dialog-lottery-block h3 a {
+            display: inline-block;
+            width: 1.893333rem;
+            height: 0.373333rem;
+            line-height: 0.373333rem;
+            color: #fff;
+            margin: 0 0.733333rem;
+            font-size: 0.373333rem;
+            padding: 0.48rem 0 0;
+          }
+          
+          .dialog-lottery-block a.active:after {
+            content: "";
+            display: block;
+            height: 0.08rem;
+            margin-top: 0.213333rem;
+            background: #fff;
+            border-radius: 0.04rem;
+          }
+          
+          .dialog-default .dialog-lottery-block .lottery-tab {
+            padding: 0;
+          }
+          
+          .dialog-lottery-block .lottery-tab {
+            display: none;
+          }
+          
+          .dialog-lottery-block .lottery-tab.active {
+            display: block;
+          }
+          
+          .lottery-tab p {
+            line-height: 0.32rem;
+            font-size: 0.32rem;
+            padding: 0.346667rem 0;
+            color: #d1a074;
+            text-align: center;
+            height: 0.32rem;
+            background: #72451c;
+          }
+          
+          .lottery-tab p:nth-child(2n+1) {
+            background: #623b19;
+          }
+          
+          .lottery-tab p span {
+            display: block;
+            float: left;
+            width: 1.24rem;
+            height: 0.32rem;
+          }
+          
+          .lottery-tab .title span:nth-child(1),
+          .lottery-tab .title span:nth-child(2) {
+            border-right: 0.026667rem solid #72451c;
+          }
+          
+          .lottery-tab p .active:after {
+            content: "";
+            display: inline-block;
+            width: 0.213333rem;
+            height: 0.213333rem;
+            border-radius: 0.106667rem;
+            background: #ffed27;
+          }
+          
+          .lottery-tab span:nth-child(7).active:after,
+          .lottery-tab span:nth-child(8).active:after {
+            background: #97eaff;
+          }
+          
+          /*toast*/
+          
+          #toast {
+            position: fixed;
+            top: 35%;
+            left: 50%;
+            margin-left: -4rem;
+            z-index: 9999;
+            width: 7.2rem;
+            padding: 0.266667rem 0.4rem;
+            background: #000;
+            opacity: .7;
+            border-radius: 0.133333rem;
+          }
+          
+          #toast p {
+            text-align: center;
+            font-size: 0.373333rem;
+            color: #f2f2f2;
+            line-height: 0.64rem;
+          }
+          
+          .fade-in-toast {
+            animation-name: fade-in-toast;
+          }
+          
+          @keyframes fade-in-toast {
+            0% {
+              opacity: 0;
+            }
+          
+            100% {
+              opacity: .7;
+            }
+          }
+          
+          /*== animate ==*/
+          
+          .animate {
+            -webkit-animation-duration: 0.35s;
+            animation-duration: 0.35s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+          }
+          
+          /*animation*/
+          
+          @-webkit-keyframes bounce {
+            from, 20%, 53%, 80%, to {
+              -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+              animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+              -webkit-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0);
+            }
+          
+            40%, 43% {
+              -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+              animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+              -webkit-transform: translate3d(0, -0.4rem, 0);
+              transform: translate3d(0, -0.4rem, 0);
+            }
+          
+            70% {
+              -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+              animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+              -webkit-transform: translate3d(0, -0.2rem, 0);
+              transform: translate3d(0, -0.2rem, 0);
+            }
+          
+            90% {
+              -webkit-transform: translate3d(0, -0.053333rem, 0);
+              transform: translate3d(0, -0.053333rem, 0);
+            }
+          }
+          
+          @keyframes bounce {
+            from, 20%, 53%, 80%, to {
+              -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+              animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+              -webkit-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0);
+            }
+          
+            40%, 43% {
+              -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+              animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+              -webkit-transform: translate3d(0, -0.4rem, 0);
+              transform: translate3d(0, -0.4rem, 0);
+            }
+          
+            70% {
+              -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+              animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+              -webkit-transform: translate3d(0, -0.2rem, 0);
+              transform: translate3d(0, -0.2rem, 0);
+            }
+          
+            90% {
+              -webkit-transform: translate3d(0, -0.053333rem, 0);
+              transform: translate3d(0, -0.053333rem, 0);
+            }
+          }
+          
+          @-webkit-keyframes rotateIn {
+            from {
+              -webkit-transform-origin: center;
+              transform-origin: center;
+              -webkit-transform: rotateZ(-360deg);
+              transform: rotateZ(-360deg);
+            }
+          
+            to {
+              -webkit-transform-origin: center;
+              transform-origin: center;
+              -webkit-transform: none;
+              transform: none;
+            }
+          }
+          
+          @keyframes rotateIn {
+            from {
+              -webkit-transform-origin: center;
+              transform-origin: center;
+              -webkit-transform: rotateZ(-360deg);
+              transform: rotateZ(-360deg);
+            }
+          
+            to {
+              -webkit-transform-origin: center;
+              transform-origin: center;
+              -webkit-transform: none;
+              transform: none;
+            }
+          }
+          
+          @-webkit-keyframes fadeInDown {
+            from {
+              opacity: 0;
+              -webkit-transform: translate3d(0, -100%, 0);
+              transform: translate3d(0, -100%, 0);
+            }
+          
+            to {
+              opacity: 1;
+              -webkit-transform: none;
+              transform: none;
+            }
+          }
+          
+          @keyframes fadeInDown {
+            from {
+              opacity: 0;
+              -webkit-transform: translate3d(0, -100%, 0);
+              transform: translate3d(0, -100%, 0);
+            }
+          
+            to {
+              opacity: 1;
+              -webkit-transform: none;
+              transform: none;
+            }
+          }
+          
+          @-webkit-keyframes zoomOut {
+            from {
+              opacity: 1;
+            }
+          
+            50% {
+              opacity: 0;
+              -webkit-transform: scale3d(0.3, 0.3, 0.3);
+              transform: scale3d(0.3, 0.3, 0.3);
+            }
+          
+            to {
+              opacity: 0;
+              display: none;
+            }
+          }
+          
+          @keyframes zoomOut {
+            from {
+              opacity: 1;
+            }
+          
+            50% {
+              opacity: 0;
+              -webkit-transform: scale3d(0.3, 0.3, 0.3);
+              transform: scale3d(0.3, 0.3, 0.3);
+            }
+          
+            to {
+              opacity: 0;
+            }
+          }
+          
+          .page-toast {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 100;
+            width: 4.666667rem;
+            min-height: 0.8rem;
+            margin-top: -0.4rem;
+            margin-left: -2.333333rem;
+            border-radius: 0.266667rem;
+            background: rgba(0, 0, 0, 0.6);
+            text-align: center;
+            color: #fff;
+            font-size: 0.4rem;
+            line-height: 0.8rem;
+            transition: all 0.4s ease;
+          }
+          
+          .page-toast.show {
+            display: block;
+          }
+          
+          .dialog-first-in {
+            display: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 10;
+            width: 10rem;
+            background: rgba(0, 0, 0, 0.7);
+          }
+          
+          .dialog-first-in.active {
+            display: block;
+          }
+          
+          .dialog-first-in.active .content {
+            animation: bounceIn 0.6s ease forwards;
+            -webkit-animation: bounceIn 0.6s ease forwards;
+          }
+          
+          .dialog-first-in .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -3.68rem;
+            margin-top: -2.36rem;
+            border: 0.146667rem solid #5b0216;
+            width: 7.066667rem;
+            height: 4.426667rem;
+            background: #88001f;
+          }
+          
+          .dialog-first-in .content .text {
+            text-align: center;
+            color: #fff;
+            font-size: 0.426667rem;
+            color: white;
+            line-height: 1;
+            padding: 0.8rem 0 0.373333rem;
+          }
+          
+          .dialog-first-in .content .butn-submit {
+            display: block;
+            width: 5.333333rem;
+            text-align: center;
+            height: 1.28rem;
+            font-size: 0.426667rem;
+            line-height: 1.28rem;
+            background-size: 1.293333rem;
+            margin: 0.36rem auto 0;
+            color: #fff;
+            background: #96dac1;
+          }
+          
+          @-webkit-keyframes bounceIn {
+            from, 20%, 40%, 60%, 80%, to {
+              -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+              animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            }
+          
+            0% {
+              opacity: 0;
+              -webkit-transform: scale3d(0.3, 0.3, 0.3);
+              transform: scale3d(0.3, 0.3, 0.3);
+            }
+          
+            20% {
+              -webkit-transform: scale3d(1.1, 1.1, 1.1);
+              transform: scale3d(1.1, 1.1, 1.1);
+            }
+          
+            40% {
+              -webkit-transform: scale3d(0.9, 0.9, 0.9);
+              transform: scale3d(0.9, 0.9, 0.9);
+            }
+          
+            60% {
+              opacity: 1;
+              -webkit-transform: scale3d(1.03, 1.03, 1.03);
+              transform: scale3d(1.03, 1.03, 1.03);
+            }
+          
+            80% {
+              -webkit-transform: scale3d(0.97, 0.97, 0.97);
+              transform: scale3d(0.97, 0.97, 0.97);
+            }
+          
+            to {
+              opacity: 1;
+              -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+            }
+          }
+          
+          @keyframes bounceIn {
+            from, 20%, 40%, 60%, 80%, to {
+              -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+              animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            }
+          
+            0% {
+              opacity: 0;
+              -webkit-transform: scale3d(0.3, 0.3, 0.3);
+              transform: scale3d(0.3, 0.3, 0.3);
+            }
+          
+            20% {
+              -webkit-transform: scale3d(1.1, 1.1, 1.1);
+              transform: scale3d(1.1, 1.1, 1.1);
+            }
+          
+            40% {
+              -webkit-transform: scale3d(0.9, 0.9, 0.9);
+              transform: scale3d(0.9, 0.9, 0.9);
+            }
+          
+            60% {
+              opacity: 1;
+              -webkit-transform: scale3d(1.03, 1.03, 1.03);
+              transform: scale3d(1.03, 1.03, 1.03);
+            }
+          
+            80% {
+              -webkit-transform: scale3d(0.97, 0.97, 0.97);
+              transform: scale3d(0.97, 0.97, 0.97);
+            }
+          
+            to {
+              opacity: 1;
+              -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+            }
+          }
+          </style>
     </head>
     <body>
        <!--loading-->
@@ -456,12 +3857,196 @@
             </div>
         </div>
         <div id="hitoast"></div>
+        <style>
+            .hide{
+              display: none;
+              opacity: 0;
+              pointer-events: none;
+            }
+            .forpay-window{
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                z-index: 2048;
+            }
+            .forpay-window-mask{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                background: rgba(0, 0, 0, 0.7);
+            }
+            .forpay-window-main{
+                position: absolute;
+                background: #72451c;
+                left: 50%;
+                top: 30%;
+                margin-left: -4.24rem;
+                width: 8.48rem;
+            }
+            .forpay-window-nav{
+                position: relative;
+                height: 1.38rem;
+                line-height: 1.38rem;
+                background: #5b3513;
+                border-bottom: 0.02rem solid #503014;
+            }
+            .forpay-window-nav li{
+                position: relative;
+                display: block;
+                width: 50%;
+                height: 100%;
+                float: left;
+                text-align: center;
+                font-size: 0.4rem;
+                color: #d1a074;
+            }
+            .forpay-window-nav li.cur{
+              color: #FFF;
+            }
+            .forpay-window-nav li.cur::after{
+              content: '';
+              position: absolute;
+              width: 2.37rem;
+              border-bottom: 0.04rem solid  #FFF;
+              left: 50%;
+              margin-left: -1.19rem;
+              top: 1rem;
+              border-radius: 50%;
+            }
+            .forpay-window-content{
+              position: relative;
+              width: 100%;
+              background: #72451c;
+              border-top: 0.02rem solid #9d6939;
+            }
+            .forpay-window-content .ipc{
+              display: block;
+              width: 7.45rem;
+              height: 1.12rem;
+              margin-left: auto;
+              margin-right: auto;
+              margin-top: 0.5rem;
+              margin-bottom: 0.5rem;
+              border: 0.02rem solid #dbb089;
+              background: #623a16;
+              line-height: 1.12rem;
+              text-indent: 0.25rem;
+              font-size: 0.38rem;
+              color: #d1a074;
+              border-radius: 0.05rem;
+            }
+            .forpay-window-bt-wrap{
+              position: relative;
+              width: 100%;
+            }
+            .forpay-window-bt1{
+              display: block;
+              float: left;
+              width: 50%;
+              height: 1.3rem;
+              line-height: 1.3rem;
+              text-align: center;
+              font-size: 0.4rem;
+              color: #4e2e11;
+              background: #784b21;
+              font-weight: bold;
+            }
+            .forpay-window-bt2{
+              display: block;
+              float: left;
+              width: 50%;
+              height: 1.3rem;
+              line-height: 1.3rem;
+              text-align: center;
+              font-size: 0.4rem;
+              color: #FFF;
+              background: #938e00;
+              font-weight: bold;
+            }
+            .forpay-window-content .change-tips{
+              position: relative;
+              width: 100%;
+              margin-bottom: 0.5rem;
+              overflow: hidden;
+            }
+            .forpay-window-content .change-tips .ctleft{
+              color: #938e00;
+              font-size: 0.37rem;
+              float: left;
+              margin-left: 0.4rem;
+            }
+            .forpay-window-content .change-tips .ctright{
+              color: #d1a074;
+              font-size: 0.37rem;
+              float: right;
+              margin-right: 0.4rem;
+            }
+            .forpay-window-content .change-tips .ctright span{
+              color: #938e00;
+            }
+        </style>
+        <div class="forpay-window hide">
+            <div class="forpay-window-mask"></div>
+            <div class="forpay-window-main">
+                <ul class="forpay-window-nav">
+                    <li class="cur">充值钻石</li>
+                    <li>金币转钻石</li>
+                </ul>
+                <div class="forpay-window-content">
+                    <input class="ipc" type="tel" placeholder="请输入数量" />
+                    <div class="change-tips">
+                      <div class="ctleft">金币数不够，请再次输入</div>
+                      <div class="ctright">可用金币<span>20</span></div>
+                    </div>
+                </div>
+                <div class="forpay-window-bt-wrap">
+                    <div class="forpay-window-bt1">取消</div>
+                    <div class="forpay-window-bt2">确定</div>
+                </div>
+            </div>
+        </div>
+        <div class="load-before-img" style="display:none;">
+            <img src="/ncdh/images/betting-item/haiyu.png?v=bd6f9814c94b674acfca9521d7b82b6a" alt="">
+            <img src="/ncdh/images/logo.png?v=fa28fa87d34303bb9dfd344510098068" alt="">
+            <img src="/ncdh/images/betting-item/hongshu.png?v=e2998fc7f66da6975b5b304e4a4fe97c" alt="">
+            <img src="/ncdh/images/betting-item/jiachu.png?v=27a7f832a01b173da8407f46481647f7" alt="">
+            <img src="/ncdh/images/betting-item/liangshi.png?v=3b1f1b5d703c9a1b0e0e77fa1ab36a2e" alt="">
+            <img src="/ncdh/images/betting-item/muji.png?v=f034502afcabcef49690659ba78e4a21" alt="">
+            <img src="/ncdh/images/betting-item/nainiu.png?v=dbf130ab2be1a1336b007e8c00a19e82" alt="">
+            <img src="/ncdh/images/betting-item/panxie.png?v=84de26e57f262ab572a60a38864b9418" alt="">
+            <img src="/ncdh/images/betting-item/qiezi.png?v=fba41d1d53bb97a436d8b6444f7df68e" alt="">
+            <img src="/ncdh/images/betting-item/qingcai.png?v=5576ca5e0778e4b125030a9998160fa3" alt="">
+            <img src="/ncdh/images/betting-item/shucai.png?v=e1c4f7417ecadc3af777a670f7c816a6" alt="">
+            <img src="/ncdh/images/betting-item/shuichan.png?v=efb8558a463ce0c5447ce555ad3512af" alt="">
+            <img src="/ncdh/images/betting-item/shuidao.png?v=d3eaa2005a155aedce26de8e3fb5407c" alt="">
+            <img src="/ncdh/images/betting-item/xia.png?v=c8c4c1ebfc8c56a25603fe83358adf70" alt="">
+            <img src="/ncdh/images/betting-item/xiaomai.png?v=adf4d614d78b5e23d002f8496b5e64d7" alt="">
+            <img src="/ncdh/images/betting-item/xihongshi.png?v=ba40a15c819daca5bd59fc990c5ffa2a" alt="">
+            <img src="/ncdh/images/betting-item/yangzhi.png?v=f31781bc7d2966a078f80ca962c6ddf7" alt="">
+            <img src="/ncdh/images/betting-item/zhaihai.png?v=44097441487e3246dcd7802df2fe4d3b" alt="">
+            <img src="/ncdh/images/betting-item/zhaihai2.png?v=b3ea618cd5530deb260840f77375b49a" alt="">
+            <img src="/ncdh/images/betting-item/zhongzhi.png?v=ba53177ec469d6bc44d552e259ecf7ef" alt="">
+            <img src="/ncdh/images/betting-item/zhu.png?v=d18e84ac100c00bd5b805e2965c7c4f2" alt="">
+            <img src="/ncdh/images/back.png?v=bd73adb5e779dea1c138c7d5b181de30" alt="">
+            <img src="/ncdh/images/bottom-nav.png?v=15c9767f2a5d5a228a11248fbf569829" alt="">
+            <img src="/ncdh/images/jinbi.png?v=fa003816943ba5c02aa1273ffaef6963" alt="">
+            <img src="/ncdh/images/kuaibao_bg.png?v=03c6e4a9267484999912aab6e59c555b" alt="">
+            <img src="/ncdh/images/main.png?v=7a9399288663cd8f44320abefec7148d" alt="">
+            <img src="/ncdh/images/sharpe-hong.png?v=46b52bc4ac5937deee8c23b685207e42" alt="">
+            <img src="/ncdh/images/sharpe-lan.png?v=7337d21f4c560de270c5afa5a893bafe" alt="">
+            <img src="/ncdh/images/up.png?v=e422c94092030175dcaa1372da1a45ed" alt="">
+            
+        </div>
         <script src="/ncdh/js/lib/zepto.min.js"></script>
         <script src="/ncdh/js/lib/fastclick.js"></script>
         <script src="/ncdh/js/lib/velocity.js"></script>
         <script src="/ncdh/js/app.bundle.js"></script>
         <script>
-            app.default();
+            // app.default();
         </script>
     </body>
 </html>
