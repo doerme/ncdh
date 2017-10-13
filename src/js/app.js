@@ -72,7 +72,7 @@ var orderObjArr = {
     18: 0,
     19: 0
 };
-
+var curUserPaySumInfo = null;
 /**
  * 下单数组初始化
  */
@@ -518,14 +518,16 @@ App.prototype.renderUsersAndBetting = function (usersData) {
             self.myTotalJinbi = Math.ceil(Number(tmpList.JB) * 100);
             self.myTotalZs = Math.ceil(Number(tmpList.ZS) * 100);
             $('.js-my-total').html(self.myTotalJinbi);
-            $('.js-myzs-total').html(self.myTotalZs);
             $('.js-my-zs').html(self.myTotalZs);
+            curUserPaySumInfo = tmpList.paySumInfo;
             tmpList = usersData[2];
         } else if (i == 2) {
             tmpList = usersData[0];
         }
         // console.log(i);
         var paySumInfo = tmpList.paySumInfo;
+        
+        console.log('curUserPaySumInfo', curUserPaySumInfo);
         htmlUsers += '<div class="users-block js-users-block" data-id="' + tmpList.userId + '">' +
             '<div class="img-wrap">' +
             '<img src="' + tmpList.avatar + '" alt="">' +
@@ -593,6 +595,12 @@ App.prototype.eventInit = function () {
             console.log('add type', self.payType, self.payGold);
             orderObjArr[self.payType] = orderObjArr[self.payType] * 1 + self.payGold/100;
             self.bettingAnimation($this, $('.js-users-block').eq(2), true);
+            if(curUserPaySumInfo != orderObjArr){
+                $('.js-butn-order-sure').removeClass('disable');
+            }else{
+                $('.js-butn-order-sure').addClass('disable');
+            }
+            // jeremy alert most
             // self.myTotalJinbi -= self.currentBettingNum;            
         }
     });
@@ -604,12 +612,16 @@ App.prototype.eventInit = function () {
             self.myTotalZs = Math.ceil(res.data.ZS * 100);
             $('.js-my-total').html(self.myTotalJinbi);
             $('.js-my-zs').html(self.myTotalZs);
-            self.bettingAnimation($this, $('.js-users-block').eq(2), true);
+            // self.bettingAnimation($this, $('.js-users-block').eq(2), true);
         });
     })
     // 撤销
     $('.js-butn-cancel').on('click', function () {
-        self.cancelAajx($(this));
+        self.rerenderList();
+        // window.location.href = window.location.href;
+        // self.getCurrentInfo();
+        // orderObjArr = orderObjArrInit;
+        // self.cancelAajx($(this));
     });
     // 更多菜单
     $('.js-butn-more').on('click', function () {
@@ -787,7 +799,7 @@ App.prototype.rerenderList = function (type) {
         // self.rendList();
         self.getCurrentInfo(type);
     }, 1000);
-
+    $('.js-butn-order-sure').addClass('disable');
 }
 /**
  *  渲染中奖的页面 列表
@@ -1112,6 +1124,22 @@ App.prototype.getLatestWinInfo = function (callback) {
     });
 }
 /**
+ * 提交数组过滤
+ */
+App.prototype.arrayFilter = function (arr) {
+    var self = this;
+    var rsArr = {};
+    for(var n in arr){
+        if(arr[n] > 0) {
+            console.log(n, arr[n]);
+            rsArr[n] = arr[n] - curUserPaySumInfo[n];
+        }
+    }
+    console.log('after filter', rsArr);
+    return rsArr;
+}
+
+/**
  * 下注
  */
 App.prototype.ajaxBetting = function (callback) {
@@ -1127,11 +1155,12 @@ App.prototype.ajaxBetting = function (callback) {
         url: apiWindowHost+'/api/ncdh/doPay',
         data: {
             issue: self.issue,
-            payList: orderObjArr
+            payList: self.arrayFilter(orderObjArr)
         },
         dataType: 'json',
         success: function (res) {
             var endTime = + new Date();
+            orderObjArr = orderObjArrInit;
             // console.log(endTime - 1000 > startTime);
             if (endTime - 1000 > startTime){
                 ajaxCheckOk(res);
