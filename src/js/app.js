@@ -49,6 +49,56 @@ var keyObj = {
     19: 11
 };
 /**
+ * 下单json
+ */
+var orderObjArr = {
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    7: 0,
+    8: 0, //猪
+    9: 0,
+    10: 0,
+    11: 0,
+    12: 0,
+    13: 0,
+    14: 0,
+    15: 0,
+    16: 0,
+    17: 0,
+    18: 0,
+    19: 0
+};
+
+/**
+ * 下单数组初始化
+ */
+var orderObjArrInit = {
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    7: 0,
+    8: 0, //猪
+    9: 0,
+    10: 0,
+    11: 0,
+    12: 0,
+    13: 0,
+    14: 0,
+    15: 0,
+    16: 0,
+    17: 0,
+    18: 0,
+    19: 0
+}
+
+/**
  * 对应的项目
  */
 var nameObj = {
@@ -540,16 +590,23 @@ App.prototype.eventInit = function () {
                 $('.js-dialog-charge').addClass('active');
                 return;
             }
-            // self.myTotalJinbi -= self.currentBettingNum;
-            self.ajaxBetting(function (res) {3
-                self.myTotalJinbi = Math.ceil(res.data.JB * 100);
-                self.myTotalZs = Math.ceil(res.data.ZS * 100);
-                $('.js-my-total').html(self.myTotalJinbi);
-                $('.js-my-zs').html(self.myTotalZs);
-                self.bettingAnimation($this, $('.js-users-block').eq(2), true);
-            });
+            console.log('add type', self.payType, self.payGold);
+            orderObjArr[self.payType] = orderObjArr[self.payType] * 1 + self.payGold/100;
+            self.bettingAnimation($this, $('.js-users-block').eq(2), true);
+            // self.myTotalJinbi -= self.currentBettingNum;            
         }
     });
+    // 确定
+    $('.js-butn-order-sure').on('click', function () {
+        console.log('butn order sure', orderObjArr);
+        self.ajaxBetting(function (res) {
+            self.myTotalJinbi = Math.ceil(res.data.JB * 100);
+            self.myTotalZs = Math.ceil(res.data.ZS * 100);
+            $('.js-my-total').html(self.myTotalJinbi);
+            $('.js-my-zs').html(self.myTotalZs);
+            self.bettingAnimation($this, $('.js-users-block').eq(2), true);
+        });
+    })
     // 撤销
     $('.js-butn-cancel').on('click', function () {
         self.cancelAajx($(this));
@@ -1069,10 +1126,8 @@ App.prototype.ajaxBetting = function (callback) {
         type: 'post',
         url: apiWindowHost+'/api/ncdh/doPay',
         data: {
-            _token: window.token,
             issue: self.issue,
-            type: self.payType,
-            gold: self.payGold / 100
+            payList: orderObjArr
         },
         dataType: 'json',
         success: function (res) {
