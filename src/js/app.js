@@ -468,6 +468,7 @@ App.prototype.renderUsersAndBetting = function (usersData) {
             self.myTotalJinbi = Math.ceil(Number(tmpList.JB) * 100);
             self.myTotalZs = Math.ceil(Number(tmpList.ZS) * 100);
             $('.js-my-total').html(self.myTotalJinbi);
+            $('.js-myzs-total').html(self.myTotalZs);
             $('.js-my-zs').html(self.myTotalZs);
             tmpList = usersData[2];
         } else if (i == 2) {
