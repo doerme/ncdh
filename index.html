@@ -3303,6 +3303,7 @@
             font-size: 0.4rem;
             line-height: 0.8rem;
             transition: all 0.4s ease;
+            z-index: 9000;
           }
           
           .page-toast.show {
@@ -4036,7 +4037,7 @@
                     <li>金币转钻石</li>
                 </ul>
                 <div class="forpay-window-content">
-                    <input class="ipc" type="tel" placeholder="请输入数量" />
+                    <input class="ipc js-one-ipc" type="tel" placeholder="请输入需要钻石数量" />
                     <div class="change-tips js-fp-change-tips">
                       <div class="ctleft">金币数不够，请再次输入</div>
                       <div class="ctright">可用金币<span class="js-my-total">--</span></div>
@@ -4048,6 +4049,7 @@
                 </div>
             </div>
         </div>
+        <div class="page-toast" id="js-page-toast"></div>
         <div class="load-before-img" style="display:none;">
             <img src="/ncdh/images/betting-item/haiyu.png?v=bd6f9814c94b674acfca9521d7b82b6a" alt="">
             <img src="/ncdh/images/logo.png?v=fa28fa87d34303bb9dfd344510098068" alt="">

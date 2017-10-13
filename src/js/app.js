@@ -686,12 +686,13 @@ App.prototype.eventInit = function () {
 
     });
 
-    // 砖石转换
+    // 砖石转换 或 充值
     $('.js-my-zs').on('click', function(){
         $('.js-forpay-window').removeClass('hide');
         $('.forpay-window-nav li').removeClass('cur');
         $('.forpay-window-nav li').eq(1).addClass('cur');
         $('.js-fp-change-tips').removeClass('hide');
+        $('.js-one-ipc').val('');
     })
 
     $('.js-my-total').on('click', function(){
@@ -699,11 +700,13 @@ App.prototype.eventInit = function () {
         $('.forpay-window-nav li').removeClass('cur');
         $('.forpay-window-nav li').eq(0).addClass('cur');
         $('.js-fp-change-tips').addClass('hide');
+        $('.js-one-ipc').val('');
     })
 
     $('.forpay-window-nav li').on('click', function(){
         $('.forpay-window-nav li').removeClass('cur');
         $(this).addClass('cur');
+        $('.js-one-ipc').val('');
         if($(this).index() == 1){
             $('.js-fp-change-tips').removeClass('hide');
         }else{
@@ -713,6 +716,47 @@ App.prototype.eventInit = function () {
 
     $('.forpay-window-bt1,.forpay-window-mask').on('click', function(){
         $('.js-forpay-window').addClass('hide');
+    })
+
+    // 确定转换 或 充值
+    $('.forpay-window-bt2').on('click', function(){
+        if($('.js-fp-change-tips').hasClass('hide')){
+            // 充值
+            $.ajax({
+                type: 'post',
+                url: apiWindowHost+'/app/login_in/zsPay',
+                data: {
+                    price: $('.js-one-ipc').val()
+                },
+                dataType: 'json',
+                success: function (res) {
+                    if (res.code == 0) {
+                        window.location.href = res.data.pay_url;
+                        //self.rerenderList(true);
+                    } else {
+                        Toast(res.msg);
+                    }
+                }
+            });
+        }else{
+            // 转换
+            $.ajax({
+                type: 'get',
+                url: apiWindowHost+'/api/ncdh/exchange',
+                data: {
+                    count: $('.js-one-ipc').val()/100
+                },
+                dataType: 'json',
+                success: function (res) {
+                    if (res.code == 0) {
+                        // window.location.href = res.data.pay_url;
+                        self.rerenderList(true);
+                    } else {
+                        Toast(res.msg);
+                    }
+                }
+            });
+        }
     })
 }
 /**
