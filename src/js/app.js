@@ -22,7 +22,7 @@ $.ajaxSettings = $.extend($.ajaxSettings, {
     }
 });
 
-var apiWindowHost='http://www.ladydrean.com';
+var apiWindowHost='';
 
 /**
  * 对应的项目
@@ -348,7 +348,7 @@ App.prototype.countFn = function () {
         $progressBlock.find('.js-progress-front').css({
             width: ((self.totalTimes - self.countTimes) / self.totalTimes * 100) + '%'
         })
-        if (self.countTimes < 1) {
+        if (self.countTimes < 3) {
             clearInterval(self.countTimer);
             self.openKuaibao();
             return;
@@ -371,7 +371,7 @@ App.prototype.openKuaibao = function () {
     $('#js-progress-text').html('结算中');
     // eslint-disable-next-line    
     Toast('农场即将丰收，请留意新闻快报~', null, 5000);
-
+    orderObjArr = orderObjArrInit;
     self.getIssueOpenResult(function (res) {
         self.XYB = res.data.JB;
         self.winGold = res.data.winGold;
@@ -589,7 +589,12 @@ App.prototype.eventInit = function () {
             self.payGold = self.currentBettingNum;
             if (self.myTotalJinbi - self.currentBettingNum < 0){
                 // console.log(11);
-                $('.js-dialog-charge').addClass('active');
+                // $('.js-dialog-charge').addClass('active');
+                $('.js-forpay-window').removeClass('hide');
+                $('.forpay-window-nav li').removeClass('cur');
+                $('.forpay-window-nav li').eq(1).addClass('cur');
+                $('.js-fp-change-tips').removeClass('hide');
+                $('.js-one-ipc').val('');
                 return;
             }
             console.log('add type', self.payType, self.payGold);
@@ -857,6 +862,7 @@ App.prototype.throwJinbiAnimation = function (elem, lotteryNum) {
 App.prototype.rerenderList = function (type) {
     var self = this;
     // self.lotteryState = 0;
+    orderObjArr = orderObjArrInit;
     $('.js-area-betting').each(function () {
         var $this = $(this);
         $this.removeClass('active current');
