@@ -348,12 +348,15 @@ App.prototype.countFn = function () {
         $progressBlock.find('.js-progress-front').css({
             width: ((self.totalTimes - self.countTimes) / self.totalTimes * 100) + '%'
         })
-        if (self.countTimes < 3) {
-            clearInterval(self.countTimer);
+        if (self.countTimes == 3) {
             self.openKuaibao();
-            return;
         }
-         self.countTimes -= 1;        
+        if (self.countTimes > 0){
+            self.countTimes -= 1;
+        }else{
+            orderObjArr = orderObjArrInit;
+            clearInterval(self.countTimer);
+        }
     }
 }
 /**
@@ -587,7 +590,7 @@ App.prototype.eventInit = function () {
             var type = $this.attr('data-type');
             self.payType = valueObj[type];
             self.payGold = self.currentBettingNum;
-            if (self.myTotalJinbi - self.currentBettingNum < 0){
+            if (self.myTotalZs - self.currentBettingNum < 0){
                 // console.log(11);
                 // $('.js-dialog-charge').addClass('active');
                 $('.js-forpay-window').removeClass('hide');
