@@ -73,30 +73,6 @@ var orderObjArr = {
     19: 0
 };
 var curUserPaySumInfo = null;
-/**
- * 下单数组初始化
- */
-var orderObjArrInit = {
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0,
-    5: 0,
-    6: 0,
-    7: 0,
-    8: 0, //猪
-    9: 0,
-    10: 0,
-    11: 0,
-    12: 0,
-    13: 0,
-    14: 0,
-    15: 0,
-    16: 0,
-    17: 0,
-    18: 0,
-    19: 0
-}
 
 /**
  * 对应的项目
@@ -354,7 +330,27 @@ App.prototype.countFn = function () {
         if (self.countTimes > 0){
             self.countTimes -= 1;
         }else{
-            orderObjArr = orderObjArrInit;
+            orderObjArr = {
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0,
+                6: 0,
+                7: 0,
+                8: 0, //猪
+                9: 0,
+                10: 0,
+                11: 0,
+                12: 0,
+                13: 0,
+                14: 0,
+                15: 0,
+                16: 0,
+                17: 0,
+                18: 0,
+                19: 0
+            };
             clearInterval(self.countTimer);
         }
     }
@@ -374,7 +370,6 @@ App.prototype.openKuaibao = function () {
     $('#js-progress-text').html('结算中');
     // eslint-disable-next-line    
     Toast('农场即将丰收，请留意新闻快报~', null, 5000);
-    orderObjArr = orderObjArrInit;
     self.getIssueOpenResult(function (res) {
         self.XYB = res.data.JB;
         self.winGold = res.data.winGold;
@@ -628,7 +623,6 @@ App.prototype.eventInit = function () {
         self.rerenderList();
         // window.location.href = window.location.href;
         // self.getCurrentInfo();
-        // orderObjArr = orderObjArrInit;
         // self.cancelAajx($(this));
     });
     // 更多菜单
@@ -865,7 +859,27 @@ App.prototype.throwJinbiAnimation = function (elem, lotteryNum) {
 App.prototype.rerenderList = function (type) {
     var self = this;
     // self.lotteryState = 0;
-    orderObjArr = orderObjArrInit;
+    orderObjArr = {
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
+        6: 0,
+        7: 0,
+        8: 0, //猪
+        9: 0,
+        10: 0,
+        11: 0,
+        12: 0,
+        13: 0,
+        14: 0,
+        15: 0,
+        16: 0,
+        17: 0,
+        18: 0,
+        19: 0
+    };
     $('.js-area-betting').each(function () {
         var $this = $(this);
         $this.removeClass('active current');
@@ -1243,7 +1257,27 @@ App.prototype.ajaxBetting = function (callback) {
         dataType: 'json',
         success: function (res) {
             var endTime = + new Date();
-            orderObjArr = orderObjArrInit;
+            orderObjArr = {
+                1: 0,
+                2: 0,
+                3: 0,
+                4: 0,
+                5: 0,
+                6: 0,
+                7: 0,
+                8: 0, //猪
+                9: 0,
+                10: 0,
+                11: 0,
+                12: 0,
+                13: 0,
+                14: 0,
+                15: 0,
+                16: 0,
+                17: 0,
+                18: 0,
+                19: 0
+            };
             $('.js-butn-order-sure').addClass('disable');
             // console.log(endTime - 1000 > startTime);
             if (endTime - 1000 > startTime){
